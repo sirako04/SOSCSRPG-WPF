@@ -29,5 +29,10 @@ namespace WPFUI
 
             DataContext = _gameSession;
         }
+
+        private void Window_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

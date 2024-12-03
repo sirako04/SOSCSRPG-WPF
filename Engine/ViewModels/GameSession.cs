@@ -10,9 +10,11 @@ namespace Engine.ViewModels
     public class GameSession
     {
         public Player CurrentPlayer { get; set; }
-        public GameSession() 
+        public Location CurrentLocation { get; set; }
+        public GameSession()
         {
-            Player CurrentPlayer = new Player("Sirak","Fighter",15,0,1,50);
+            Player CurrentPlayer = new Player("Sirak", "Fighter", 15, 0, 1, 50);
+            CurrentLocation = new Location(0, -1, "Home", "This is your home", "Image");
         }
     }
 }

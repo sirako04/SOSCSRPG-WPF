@@ -14,5 +14,15 @@ namespace Engine.Models
         public int ExperiencePoints { get; set; }
         public int Level { get; set; }
         public int Gold { get; set; }
-    }
+        public Player(string name, string characterClass, int hitPoints,
+                      int experiencePoints, int level, int gold)
+        {
+            Name = name;
+            CharacterClass = characterClass;
+            HitPoints = hitPoints;
+            ExperiencePoints = experiencePoints;
+            Level = level;
+            Gold = gold;
+        }
+    }   
 }

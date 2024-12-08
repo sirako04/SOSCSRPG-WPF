@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class Player : INotifyPropertyChanged
+    public class Player : Notification
     {
         private string _name;
         private string _characterClass;
@@ -16,56 +16,55 @@ namespace Engine.Models
         private int _level;
         private int _gold;
 
-        public string Name 
+        public string Name
         {
             get { return _name; }
-            set 
+            set
             {
                 _name = value;
                 OnPropertyChanged(nameof(Name));
-                
             }
         }
-        public string CharacterClass 
+        public string CharacterClass
         {
             get { return _characterClass; }
-            set 
+            set
             {
                 _characterClass = value;
                 OnPropertyChanged(nameof(CharacterClass));
             }
         }
-        public int HitPoints 
+        public int HitPoints
         {
             get { return _hitPoints; }
-            set 
+            set
             {
                 _hitPoints = value;
                 OnPropertyChanged(nameof(HitPoints));
             }
         }
-        public int ExperiencePoints 
+        public int ExperiencePoints
         {
             get { return _experiencePoints; }
-            set 
+            set
             {
                 _experiencePoints = value;
-                OnPropertyChanged(nameof(ExperiencePoints));    
+                OnPropertyChanged(nameof(ExperiencePoints));
             }
         }
-        public int Level 
+        public int Level
         {
             get { return _level; }
-            set 
+            set
             {
                 _level = value;
                 OnPropertyChanged(nameof(Level));
             }
         }
-        public int Gold 
+        public int Gold
         {
             get { return _gold; }
-            set 
+            set
             {
                 _gold = value;
                 OnPropertyChanged(nameof(Gold));
@@ -81,11 +80,6 @@ namespace Engine.Models
             Level = level;
             Gold = gold;
         }
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName) 
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        } 
-    }   
+    }
 }

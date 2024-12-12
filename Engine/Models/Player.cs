@@ -72,6 +72,7 @@ namespace Engine.Models
             }
         }
         public ObservableCollection<GameItem> Inventory { get; set; }
+        public ObservableCollection<QuestStatus> Quests { get; set; }
         public Player(string name, string characterClass, int hitPoints,
                       int experiencePoints, int level, int gold)
         {
@@ -82,6 +83,7 @@ namespace Engine.Models
             Level = level;
             Gold = gold;
             Inventory = new ObservableCollection<GameItem>();
+            Quests = new ObservableCollection<QuestStatus>();
         }
 
     }

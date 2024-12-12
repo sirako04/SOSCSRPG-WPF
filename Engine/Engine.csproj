@@ -47,6 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\ItemFactory.cs" />
+    <Compile Include="Factories\QuestFactory.cs" />
+    <Compile Include="Models\ItemQuantity.cs" />
+    <Compile Include="Models\Monster.cs" />
+    <Compile Include="Models\Quest.cs" />
+    <Compile Include="Models\QuestStatus.cs" />
     <Compile Include="Models\Weapon.cs" />
     <Compile Include="Models\GameItem.cs" />
     <Compile Include="Notification.cs" />

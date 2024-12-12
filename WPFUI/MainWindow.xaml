@@ -4,10 +4,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFUI"
-        mc:Ignorable="d"
-        FontSize="11pt"
+        xmlns:local="clr-namespace:WPFUI" xmlns:viewmodels="clr-namespace:Engine.ViewModels;assembly=Engine"
+        d:DataContext="{d:DesignInstance Type=viewmodels:GameSession,IsDesignTimeCreatable=True}"
+       
+        mc:Ignorable="d" 
+        FontSize="12pt"
+        FontFamily="Times New Roman Bold"
         Title="The SMT RPG" Height="768" Width="1024">
+    <!--xmlns:local is there so that the DataBinding will work 
+            otherwise its not Binding the Data (idk why tho) -->
+    
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
@@ -41,23 +47,31 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-            <Label Grid.Row="0" Grid.Column="1" Content="{Binding
-                CurrentPlayer.Name}"/>
+            <Label x:Name="PlayerName_value" Grid.Row="0" Grid.Column="1" 
+                   Content="{Binding CurrentPlayer.Name}"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Class:"/>
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding 
-                CurrentPlayer.CharacterClass}"/>
+            <Label x:Name="PlayerClass_value" Grid.Row="1" Grid.Column="1"
+                   Content="{Binding CurrentPlayer.CharacterClass}"/>
+            
             <Label Grid.Row="2" Grid.Column="0" Content="HP:"/>
-            <Label Grid.Row="2" Grid.Column="1" Content="{Binding 
-                CurrentPlayer.HitPoints}"/>
+            <Label x:Name="PlayerHP_value" Grid.Row="2" Grid.Column="1" 
+                   Content="{Binding CurrentPlayer.HitPoints}"/>
+            
             <Label Grid.Row="3" Grid.Column="0" Content="Gold:"/>
-            <Label Grid.Row="3" Grid.Column="1" Content="{Binding 
-                CurrentPlayer.Gold}"/>
+            <Label x:Name="PlayerGold_value" Grid.Row="3" Grid.Column="1" 
+                   Content="{Binding CurrentPlayer.Gold}"/>
+            
             <Label Grid.Row="4" Grid.Column="0" Content="XP:"/>
-            <Label Grid.Row="4" Grid.Column="1" Content="{Binding 
-                CurrentPlayer.ExperiencePoints}"/>
+            <Label x:Name="PlayerXP_value" Grid.Row="4" Grid.Column="1" 
+                   Content="{Binding CurrentPlayer.ExperiencePoints}"/>
+            
             <Label Grid.Row="5" Grid.Column="0" Content="Level"/>
-            <Label Grid.Row="5" Grid.Column="1" Content="{Binding
-                CurrentPlayer.Level}"/>
+            <Label x:Name="PlayerLevel_value" Grid.Row="5" Grid.Column="1" 
+                   Content="{Binding CurrentPlayer.Level}">
+                <Label.DataContext>
+                    <viewmodels:GameSession/>
+                </Label.DataContext>
+            </Label>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1" Background="Beige">
@@ -89,7 +103,7 @@
                            Source="{Binding CurrentLocation.ImageName}"/>
 
                     <TextBlock Grid.Row="2" HorizontalAlignment="Center" 
-                               Text="{Binding CurrentLocation.Description}"/>
+                               Text="{Binding CurrentLocation.Description}" TextWrapping="Wrap"/>
 
                 </Grid>
             </Border>
@@ -107,15 +121,27 @@
                             <DataGridTextColumn Header="Price"
                     Binding="{Binding Price}"
                     Width="Auto"/>
-                        </DataGrid.Columns> 
+                        </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
-            </TabControl> 
+
+                <TabItem Header="Quests">
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.Quests}"
+                                            AutoGenerateColumns="False"
+                                            HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" 
+                                                Binding="{Binding PlayerQuest.Name}"
+                                                Width="*"/>
+                            <DataGridTextColumn Header="Done?"
+                                                Binding="{Binding IsCompleted}"
+                                                Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
         </Grid>
 
-
-        <Label Grid.Row="2" Grid.Column="0" Content="Inventory/Quests" Background="BurlyWood"></Label>
-        
         <Grid Grid.Row="2" Grid.Column="1" Background="Lavender">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -124,9 +150,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="255"/>
             </Grid.ColumnDefinitions>
-            
+
             <Grid Grid.Row="0" Grid.Column="1">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -154,7 +180,7 @@
                 Width="65" Margin="10" Click="OnClick_MoveSouth"
                 Visibility="{Binding HasLocationToSouth, Converter={StaticResource BooleanToVisibility}}"
                 Content="South"/>
-                
+
             </Grid>
 
         </Grid>

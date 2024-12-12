@@ -28,6 +28,7 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToEast));
                 OnPropertyChanged(nameof(HasLocationToSouth));
                 OnPropertyChanged(nameof(HasLocationToWest));
+                GivePlayerQuestsAtLocation();
             }
         }
         public bool HasLocationToNorth
@@ -64,7 +65,8 @@ namespace Engine.ViewModels
         }
         public GameSession()
         {
-            Player CurrentPlayer = new Player("Sirak", "Fighter", 15, 0, 1, 50);
+            CurrentPlayer = new Player("Sirak", "Fighter", 15, 0, 1, 50);
+
             CurrentLocation = new Location(0, -1, "Home", "This is your home",
                 "/Engine;component/Images/Locations/Home.png");
  
@@ -103,6 +105,16 @@ namespace Engine.ViewModels
             {
                 CurrentLocation = CurrentWorld.locationAt
                 (CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
+            }
+        }
+        private void GivePlayerQuestsAtLocation() 
+        {
+            foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+            {
+                if (!CurrentPlayer.Quests.Any(q =>q.PlayerQuest.ID == quest.ID))
+                {
+                    CurrentPlayer.Quests.Add(new QuestStatus(quest));
+                }
             }
         }
 

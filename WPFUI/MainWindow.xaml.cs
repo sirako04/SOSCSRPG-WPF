@@ -26,8 +26,8 @@ namespace WPFUI
         {
             InitializeComponent();
             _gameSession = new GameSession();
-
             DataContext = _gameSession;
+         
         }
 
         private void OnClick_MoveNorth(object sender, RoutedEventArgs e)

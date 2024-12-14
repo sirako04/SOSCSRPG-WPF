@@ -17,7 +17,7 @@ namespace Engine.Models
             _locations.Add(loc);
 
         }
-        public Location locationAt(int xCoordinate, int yCoordinate) 
+        public Location LocationAt(int xCoordinate, int yCoordinate) 
         {
             foreach (Location loc in _locations) 
             {

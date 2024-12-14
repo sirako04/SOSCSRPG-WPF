@@ -14,8 +14,21 @@ namespace Engine.ViewModels
     {
 
         private Location _currentLocation;
+        private Monster _currentMonster;
         public World CurrentWorld { get; set; }
         public Player CurrentPlayer { get; set; }
+        public Monster  CurrentMonster 
+        {
+            get { return _currentMonster; }
+            set 
+            {
+                _currentMonster = value;
+                OnPropertyChanged(nameof(CurrentMonster));
+                OnPropertyChanged(nameof(HasMonster));
+            }
+        }
+        public bool HasMonster => CurrentMonster != null;
+
         public Location CurrentLocation
         {
             get { return _currentLocation; }
@@ -29,13 +42,14 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToSouth));
                 OnPropertyChanged(nameof(HasLocationToWest));
                 GivePlayerQuestsAtLocation();
+                GetMonsterAtLocation();
             }
         }
         public bool HasLocationToNorth
         {
             get
             {
-                return CurrentWorld.locationAt
+                return CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
             }
         }
@@ -43,7 +57,7 @@ namespace Engine.ViewModels
         {
             get
             {
-                return CurrentWorld.locationAt
+                return CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
             }
         }
@@ -51,7 +65,7 @@ namespace Engine.ViewModels
         {
             get
             {
-                return CurrentWorld.locationAt
+                return CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
             }
         }
@@ -59,7 +73,7 @@ namespace Engine.ViewModels
         {
             get
             {
-                return CurrentWorld.locationAt
+                return CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
             }
         }
@@ -71,7 +85,7 @@ namespace Engine.ViewModels
                 "/Engine;component/Images/Locations/Home.png");
  
             CurrentWorld = WorldFactory.CreateWorld();
-            CurrentLocation = CurrentWorld.locationAt(0, -1);
+            CurrentLocation = CurrentWorld.LocationAt(0, -1);
             CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1001));
         }
 
@@ -79,7 +93,7 @@ namespace Engine.ViewModels
         {
             if (HasLocationToNorth)
             {
-                CurrentLocation = CurrentWorld.locationAt
+                CurrentLocation = CurrentWorld.LocationAt
                 (CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1);
             }
         }
@@ -87,7 +101,7 @@ namespace Engine.ViewModels
         {
             if (HasLocationToEast)
             {
-                CurrentLocation = CurrentWorld.locationAt
+                CurrentLocation = CurrentWorld.LocationAt
                 (CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate);
             }
         }
@@ -95,7 +109,7 @@ namespace Engine.ViewModels
         {
             if (HasLocationToSouth)
             {
-                CurrentLocation = CurrentWorld.locationAt
+                CurrentLocation = CurrentWorld.LocationAt
                 (CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1);
             }
         }
@@ -103,7 +117,7 @@ namespace Engine.ViewModels
         {
             if (HasLocationToWest)
             {
-                CurrentLocation = CurrentWorld.locationAt
+                CurrentLocation = CurrentWorld.LocationAt
                 (CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
             }
         }
@@ -116,6 +130,10 @@ namespace Engine.ViewModels
                     CurrentPlayer.Quests.Add(new QuestStatus(quest));
                 }
             }
+        }
+        private void GetMonsterAtLocation()
+        {
+            CurrentMonster = CurrentLocation.GetMonster();
         }
 
     }

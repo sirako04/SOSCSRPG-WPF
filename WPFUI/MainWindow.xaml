@@ -13,7 +13,7 @@
         FontFamily="Times New Roman Bold"
         Title="The SMT RPG" Height="768" Width="1024">
     <!--xmlns:local is there so that the DataBinding will work 
-            otherwise its not Binding the Data (idk why tho) -->
+            otherwise it is not Binding Data (idk why tho) -->
     
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
@@ -88,6 +88,21 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                    BorderBrush="Gainsboro" BorderThickness="1">
+
+                <RichTextBox x:Name="GameMessages" 
+                             Background="Beige"
+                             VerticalScrollBarVisibility="Auto">
+                    <RichTextBox.Resources>
+                        <Style TargetType="{x:Type Paragraph}">
+                            <Setter Property="Margin" Value="0"/>
+                        </Style>
+                    </RichTextBox.Resources>                    
+                </RichTextBox>
+                
+            </Border>
 
             <!--For the right collumn with location info-->
             <Border Grid.Row="0" Grid.Column="1"
@@ -187,6 +202,32 @@
                 <ColumnDefinition Width="255"/>
             </Grid.ColumnDefinitions>
 
+            <Grid Grid.Row="0" Grid.Column="0"
+                  Visibility="{Binding HasMonster,Converter={StaticResource BooleanToVisibility}}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Row="0" Grid.Column="0"
+                          ItemsSource="{Binding CurrentPlayer.Weapons}"
+                          SelectedItem="{Binding CurrentWeapon}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="ItemTypeID"/>
+                <Button Grid.Row="0" Grid.Column="2"
+                        Content="Use"
+                        Click="OnClick_AttackMonster"/>
+            </Grid>
+            
+                 <!--Movement Controls-->
             <Grid Grid.Row="0" Grid.Column="1">
 
                 <Grid.RowDefinitions>
@@ -208,14 +249,20 @@
                 Width="65" Margin="10" Click="OnClick_MoveWest" 
                  Visibility="{Binding HasLocationToWest, Converter={StaticResource BooleanToVisibility}}"       
                 Content="West"/>
-                <Button Grid.Row="1" Grid.Column="2"  Height="25" 
-                Width="65" Margin="10" Click="OnClick_MoveEast" 
-                 Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisibility}}"       
-                Content="East"/>
+                <Button Grid.Row="1" Grid.Column="1" 
+                        Height="25" Width="65" Margin="10" 
+                        Visibility="{Binding HasTrader, Converter={StaticResource BooleanToVisibility}}"
+                       Click="OnClick_DisplayTradeScreen" Content="Trade"/>
+                
                 <Button Grid.Row="2" Grid.Column="1" Height="25"
                 Width="65" Margin="10" Click="OnClick_MoveSouth"
                 Visibility="{Binding HasLocationToSouth, Converter={StaticResource BooleanToVisibility}}"
                 Content="South"/>
+                <Button Grid.Row="1" Grid.Column="2"  Height="25" 
+                Width="65" Margin="10" Click="OnClick_MoveEast" 
+                 Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisibility}}"       
+                Content="East"/>
+                
 
             </Grid>
 

@@ -8,7 +8,7 @@ namespace Engine.Factories
 {
     public static class ItemFactory
     {
-       private static List<GameItem> _stdGameItems = new List<GameItem>();
+       private static readonly List<GameItem> _stdGameItems = new List<GameItem>();
 
         static ItemFactory() 
         {
@@ -27,6 +27,10 @@ namespace Engine.Factories
                          (item => item.ItemTypeID == itemTypeID);
             if (standardItem != null) 
             {
+                if (standardItem is Weapon)
+                {
+                    return (standardItem as Weapon).Clone();
+                }
                 return standardItem.Clone();
             }
 

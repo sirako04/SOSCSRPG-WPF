@@ -13,7 +13,7 @@ namespace Engine.Models
             string name, string description, string imageName) 
         {
             Location loc = new Location
-            (xCoordinate, yCoordinate, name, description, imageName);
+            (xCoordinate, yCoordinate, name, description, $"/Engine;component/Images/Locations/{imageName}");
             _locations.Add(loc);
 
         }

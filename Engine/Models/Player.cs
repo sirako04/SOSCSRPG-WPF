@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -72,6 +73,8 @@ namespace Engine.Models
             }
         }
         public ObservableCollection<GameItem> Inventory { get; set; }
+        public List<GameItem> Weapons =>
+            Inventory.Where(i => i is Weapon).ToList();
         public ObservableCollection<QuestStatus> Quests { get; set; }
         public Player(string name, string characterClass, int hitPoints,
                       int experiencePoints, int level, int gold)
@@ -85,6 +88,26 @@ namespace Engine.Models
             Inventory = new ObservableCollection<GameItem>();
             Quests = new ObservableCollection<QuestStatus>();
         }
-
+        public void AddItemToInventory(GameItem item)
+        {
+            Inventory.Add(item);
+            OnPropertyChanged(nameof(Weapons));
+        }
+        public void RemoveItemFromInventory(GameItem item) 
+        {
+            Inventory.Remove(item);
+            OnPropertyChanged(nameof(Weapons));
+        }
+        public bool HasAllItems(List<ItemQuantity> items)
+        {
+            foreach (ItemQuantity item in items) 
+            {
+                if (Inventory.Count((i => i.ItemTypeID == item.ItemID)) < item.Quantity)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

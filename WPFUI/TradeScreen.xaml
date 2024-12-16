@@ -10,8 +10,8 @@
         mc:Ignorable="d"
         FontSize="11pt"
         FontFamily="Times New Roman Bold"
-        Title="TradeScreen" Height="480" Width="640">
-    <Grid Margin="10">
+        Title="TradeScreen" Height="480" Width="640" Background="BlanchedAlmond">
+    <Grid Margin="10" Background="LightSalmon" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -39,7 +39,7 @@
                   CanUserDeleteRows="False"
                   VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Description" 
+                <DataGridTextColumn Header="Description"
                                     IsReadOnly="True"
                                     Width="*"
                                     Binding="{Binding Path=Name}"/>

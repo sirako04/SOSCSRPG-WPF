@@ -58,7 +58,7 @@
             
             <Label Grid.Row="2" Grid.Column="0" Content="HP:"/>
             <Label x:Name="PlayerHP_value" Grid.Row="2" Grid.Column="1" 
-                   Content="{Binding CurrentPlayer.HitPoints}"/>
+                   Content="{Binding CurrentPlayer.CurrentHitPoints}"/>
             
             <Label Grid.Row="3" Grid.Column="0" Content="Gold:"/>
             <Label x:Name="PlayerGold_value" Grid.Row="3" Grid.Column="1" 
@@ -150,7 +150,7 @@
                         HorizontalAlignment="Center" Orientation="Horizontal">
 
                         <TextBlock> Current Hit Points:</TextBlock>
-                        <TextBlock Text="{Binding CurrentMonster.HitPoints}"/>
+                        <TextBlock Text="{Binding CurrentMonster.CurrentHitPoints}"/>
                     </StackPanel>
                     
                 </Grid>
@@ -269,3 +269,4 @@
         </Grid>
     </Grid>
 </Window>
+            <!--  Icon Copyright :  "https://www.flaticon.com/de/kostenlose-icons/kampf" title="kampf Icons">Kampf Icons erstellt von Freepik - Flaticon    -->

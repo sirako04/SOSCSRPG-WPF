@@ -52,6 +52,7 @@
     <Compile Include="Factories\QuestFactory.cs" />
     <Compile Include="Factories\TraderFactory.cs" />
     <Compile Include="Models\ItemQuantity.cs" />
+    <Compile Include="Models\LivingEntity.cs" />
     <Compile Include="Models\Monster.cs" />
     <Compile Include="Models\MonsterEncounter.cs" />
     <Compile Include="Models\Quest.cs" />

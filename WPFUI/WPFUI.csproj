@@ -37,6 +37,9 @@
   <PropertyGroup>
     <StartupObject>WPFUI.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>gaming.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Engine" />
     <Reference Include="System" />
@@ -110,6 +113,9 @@
       <Project>{c8cc3194-504d-4905-8d97-3f9913a41b3d}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="gaming.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

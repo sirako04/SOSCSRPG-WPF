@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class Player :LivingEntity
-    {   
-        private string _characterClass;       
+    public class Player : LivingEntity
+    {
+        private string _characterClass;
         private int _experiencePoints;
         private int _level;
-    
+
 
         public string CharacterClass
         {
@@ -25,7 +26,7 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(CharacterClass));
             }
         }
-      
+
         public int ExperiencePoints
         {
             get { return _experiencePoints; }
@@ -43,15 +44,19 @@ namespace Engine.Models
                 _level = value;
                 OnPropertyChanged(nameof(Level));
             }
-        }        
+        }
         public ObservableCollection<QuestStatus> Quests { get; set; }
-        public Player()
+        public Player(string name, string characterClass, int experiencePoints,
+                       int maximumHitPoints, int currentHitPoints, int gold)
+            : base(name, maximumHitPoints, currentHitPoints, gold)
         {
+            CharacterClass = characterClass;
+            ExperiencePoints = experiencePoints;
             Quests = new ObservableCollection<QuestStatus>();
         }
         public bool HasAllItems(List<ItemQuantity> items)
         {
-            foreach (ItemQuantity item in items) 
+            foreach (ItemQuantity item in items)
             {
                 if (Inventory.Count((i => i.ItemTypeID == item.ItemID)) < item.Quantity)
                 {

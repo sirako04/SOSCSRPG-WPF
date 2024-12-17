@@ -7,7 +7,6 @@
         xmlns:local="clr-namespace:WPFUI"
         xmlns:viewmodels="clr-namespace:Engine.ViewModels;assembly=Engine"
         d:DataContext="{d:DesignInstance Type=viewmodels:GameSession,IsDesignTimeCreatable=True}"
-       
         mc:Ignorable="d" 
         FontSize="12pt"
         FontFamily="Times New Roman Bold"

@@ -53,7 +53,6 @@ namespace Engine.Models
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; set; }
         public List<GameItem> Weapons => Inventory.Where(i => i is Weapon).ToList();
         public bool IsDead => CurrentHitPoints <= 0;
-
         public event EventHandler OnKilled;
         protected LivingEntity(string name, int maximumHitPoints, int currentHitPoints,int gold)
         {   
@@ -70,7 +69,7 @@ namespace Engine.Models
             if (IsDead)
             {
                 CurrentHitPoints = 0;
-               // RaiseOnKilledEvent();
+                RaiseOnKilledEvent();
             }
         }
         public void Heal(int hitPointsToheal)

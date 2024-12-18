@@ -28,13 +28,15 @@ namespace Engine.ViewModels
             {
                 if (_currentPlayer != null)
                 {
-                     _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
+                    _currentPlayer.OnLeveledUp -= OnCurrentPlayerLeveledUp;
+                    _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
                 }
 
                 _currentPlayer = value;
 
                 if (_currentPlayer != null)
                 {
+                    _currentPlayer.OnLeveledUp += OnCurrentPlayerLeveledUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
                 }
 
@@ -49,13 +51,13 @@ namespace Engine.ViewModels
             {
                 if (_currentMonster != null)
                 {
-                      _currentMonster.OnKilled -= OnCurrentMonsterKilled;
+                    _currentMonster.OnKilled -= OnCurrentMonsterKilled;
                 }
                 _currentMonster = value;
 
                 if (CurrentMonster != null)
                 {
-                     _currentMonster.OnKilled += OnCurrentMonsterKilled;
+                    _currentMonster.OnKilled += OnCurrentMonsterKilled;
                     RaiseMessage("");
                     RaiseMessage($"You see a {CurrentMonster.Name} here!");
                 }
@@ -119,8 +121,7 @@ namespace Engine.ViewModels
             }
 
             CurrentWorld = WorldFactory.CreateWorld();
-            CurrentLocation = CurrentWorld.LocationAt(0, -1);
-            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1001));
+            CurrentLocation = CurrentWorld.LocationAt(0, -1);       
         }
 
         public void MoveNorth()
@@ -178,15 +179,18 @@ namespace Engine.ViewModels
                         }
                         RaiseMessage("");
                         RaiseMessage($"You completed the {quest.Name} quest.");
-                        CurrentPlayer.ExperiencePoints += quest.RewardEXP;
+
                         RaiseMessage($"You receive {quest.RewardEXP} EXP.");
-                        CurrentPlayer.ReceiveGold(quest.RewardGold);
+                        CurrentPlayer.AddExperience(quest.RewardEXP);
+
                         RaiseMessage($"You receive {quest.RewardGold} gold.");
+                        CurrentPlayer.ReceiveGold(quest.RewardGold);
+
                         foreach (ItemQuantity itemQuantity in quest.RewardItems)
                         {
                             GameItem rewarditem = ItemFactory.CreateGameItem(itemQuantity.ItemID);
-                            CurrentPlayer.AddItemToInventory(rewarditem);
                             RaiseMessage($"You receive a {rewarditem.Name}");
+                            CurrentPlayer.AddItemToInventory(rewarditem);
                         }
                         questToComplete.IsCompleted = true;
                     }
@@ -246,7 +250,7 @@ namespace Engine.ViewModels
 
             if (CurrentMonster.IsDead)
             {
-               GetMonsterAtLocation();
+                GetMonsterAtLocation();
             }
             else
             {
@@ -276,7 +280,7 @@ namespace Engine.ViewModels
             RaiseMessage("");
             RaiseMessage($"You defeated the {CurrentMonster.Name}!");
             RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
-            CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
+            CurrentPlayer.AddExperience(CurrentMonster.RewardExperiencePoints);
             RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
             CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
             foreach (GameItem gameItem in CurrentMonster.Inventory)
@@ -284,6 +288,14 @@ namespace Engine.ViewModels
                 RaiseMessage($"You receive one {gameItem.Name}.");
                 CurrentPlayer.AddItemToInventory(gameItem);
             }
+        }
+        private void OnCurrentPlayerLeveledUp(object sender, System.EventArgs eventArgs)
+        {
+            RaiseMessage("");
+            RaiseMessage(" YOU LEVELED UP!! ");
+            RaiseMessage("");
+            RaiseMessage($"You are now Level {CurrentPlayer.Level}!");
+            RaiseMessage("");
         }
         private void RaiseMessage(string message)
         {

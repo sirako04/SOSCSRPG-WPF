@@ -9,13 +9,13 @@ namespace Engine.Models
 {
     public class Location
     {
-        public int XCoordinate { get; set; }
-        public int YCoordinate { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImageName { get; set; }
-        public List<Quest> QuestsAvailableHere { get; set; } = new List<Quest>();
-        public List<MonsterEncounter> MonstersHere { get; set; }
+        public int XCoordinate { get;}
+        public int YCoordinate { get;}
+        public string Name { get; }
+        public string Description { get; }
+        public string ImageName { get; }
+        public List<Quest> QuestsAvailableHere { get; } = new List<Quest>();
+        public List<MonsterEncounter> MonstersHere { get; }
             = new List<MonsterEncounter>();
         public Trader TraderHere { get; set; }
 

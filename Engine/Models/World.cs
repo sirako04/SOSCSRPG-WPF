@@ -14,6 +14,7 @@ namespace Engine.Models
         {
             Location loc = new Location
             (xCoordinate, yCoordinate, name, description, $"/Engine;component/Images/Locations/{imageName}");
+
             _locations.Add(loc);
 
         }

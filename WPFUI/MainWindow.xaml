@@ -122,7 +122,6 @@
 
                     <TextBlock Grid.Row="2" HorizontalAlignment="Center" 
                                Text="{Binding CurrentLocation.Description}" TextWrapping="Wrap"/>
-
                 </Grid>
             </Border>
                         <!--Displaying Monster Info-->
@@ -151,25 +150,22 @@
                         <TextBlock> Current Hit Points:</TextBlock>
                         <TextBlock Text="{Binding CurrentMonster.CurrentHitPoints}"/>
                     </StackPanel>
-                    
                 </Grid>
-                
             </Border>   
         </Grid>
 
                         <!--Inventory and Quests-->
         <Grid Grid.Row="2" Grid.Column="0" Background="BurlyWood">
             <TabControl>
-                <TabItem Header="Inventory">
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.GroupedInventory}" 
+                <TabItem Header="Inventory" >
+                    <DataGrid  IsReadOnly="True" ItemsSource="{Binding CurrentPlayer.GroupedInventory}" 
                                             AutoGenerateColumns="False"
                                             HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Item.Name}"
                                                 Width="*"/>
-                            <DataGridTextColumn Header="Qty"
-                                                IsReadOnly="True"
+                            <DataGridTextColumn Header="Qty"                        
                                                 Width="Auto"
                                                 Binding="{Binding Quantity}"/>
                             <DataGridTextColumn Header="Price"
@@ -180,7 +176,10 @@
                 </TabItem>
 
                 <TabItem Header="Quests">
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.Quests}"
+                    <DataGrid IsReadOnly="True" ItemsSource="{Binding CurrentPlayer.Quests}"
+                                             
+                                            CanUserDeleteRows="False"
+                                            CanUserAddRows="False"
                                             AutoGenerateColumns="False"
                                             HeadersVisibility="Column">
                         <DataGrid.Columns>
@@ -222,7 +221,7 @@
 
                 <ComboBox Grid.Row="0" Grid.Column="0"
                           ItemsSource="{Binding CurrentPlayer.Weapons}"
-                          SelectedItem="{Binding CurrentWeapon}"
+                          SelectedItem="{Binding CurrentPlayer.CurrentWeapon}"
                           DisplayMemberPath="Name"
                           SelectedValuePath="ItemTypeID"/>
                 <Button Grid.Row="0" Grid.Column="2"

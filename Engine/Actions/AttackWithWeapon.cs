@@ -1,25 +1,17 @@
 ﻿using Engine.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Actions
 {
-    public class AttackWithWeapon
+    public class AttackWithWeapon : BaseAction, IAction
     {
-        private readonly GameItem _weapon;
         private readonly int _maximumDamage;
         private readonly int _minimumDamage;
-
-        public event EventHandler<string> OnActionPerformed;
-
-        public AttackWithWeapon(GameItem weapon, int minimumDamage, int maximumDamage)
+        public AttackWithWeapon(GameItem itemInUse, int minimumDamage, int maximumDamage) :base(itemInUse)
         {
-            if (weapon.Category != GameItem.ItemCategory.Weapon)
+            if (itemInUse.Category != GameItem.ItemCategory.Weapon)
             {
-                throw new ArgumentException($" {weapon.Name} is not a weapon");
+                throw new ArgumentException($" {itemInUse.Name} is not a weapon");
             }
 
             if (_minimumDamage < 0)
@@ -30,27 +22,24 @@ namespace Engine.Actions
             {
                 throw new ArgumentException("MaximumDamage should be greater than minimumDamage");
             }
-
-            _weapon = weapon;
             _minimumDamage = minimumDamage;
             _maximumDamage = maximumDamage;
         }
         public void Execute(LivingEntity actor, LivingEntity target)
         {
+            string actorname =(actor is Player)? "You": $"The {actor.Name.ToLower()}";
+            string targetname =(target is Player)? "you": $"the {target.Name.ToLower()}";
+
             int damage = RandomNumberGenerator.NumberBetween(_minimumDamage, _maximumDamage);
             if (damage == 0)
             {
-                ReportResult($"You missed the {target.Name.ToLower()}. ");                     
+                ReportResult($"{actorname} missed {targetname}. ");                     
             }
             else
             {
-                ReportResult($"You hit the {target.Name.ToLower()} for {damage} points ");
+                ReportResult($"{actorname} hit {targetname} for {damage} point{(damage >1? "s":"")}.");
                 target.TakeDamage(damage);
             }
-        }
-        private void ReportResult(string result)
-        {
-            OnActionPerformed?.Invoke(this, result);
         }
     }
 }

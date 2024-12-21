@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Models
 {
@@ -14,11 +12,12 @@ namespace Engine.Models
         private int _maximumHitPoints;
         private int _gold;
         private int _level;
+        private GameItem _currentConsumable;
         private GameItem _currentWeapon;
         public string Name
         {
             get { return _name; }
-           private set
+            private set
             {
                 _name = value;
                 OnPropertyChanged();
@@ -36,7 +35,7 @@ namespace Engine.Models
         public int MaximumHitPoints
         {
             get { return _maximumHitPoints; }
-           protected set
+            protected set
             {
                 _maximumHitPoints = value;
                 OnPropertyChanged();
@@ -45,25 +44,25 @@ namespace Engine.Models
         public int Gold
         {
             get { return _gold; }
-           private set
+            private set
             {
                 _gold = value;
                 OnPropertyChanged();
             }
         }
-        public int Level 
+        public int Level
         {
             get { return _level; }
-           protected set
+            protected set
             {
                 _level = value;
                 OnPropertyChanged();
             }
         }
-        public GameItem CurrentWeapon 
+        public GameItem CurrentWeapon
         {
-            get { return _currentWeapon; }
-            set 
+            get => _currentWeapon;
+            set
             {
                 if (_currentWeapon != null)
                 {
@@ -78,15 +77,35 @@ namespace Engine.Models
                 OnPropertyChanged();
             }
         }
+        public GameItem CurrentConsumable
+        {
+            get => _currentConsumable;
+            set
+            {
+                if (_currentConsumable != null)
+                {
+                    _currentConsumable.Action.OnActionPerformed -= RaiseActionPerformedEvent;
+                }
+                _currentConsumable = value;
+
+                if (_currentConsumable != null)
+                {
+                    _currentConsumable.Action.OnActionPerformed += RaiseActionPerformedEvent;
+                }
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<GameItem> Inventory { get; }
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
         public List<GameItem> Weapons => Inventory.Where(i => i.Category == GameItem.ItemCategory.Weapon).ToList();
+        public List<GameItem> Consumables => Inventory.Where(i => i.Category == GameItem.ItemCategory.Consumable).ToList();
         public bool IsDead => CurrentHitPoints <= 0;
+        public bool HasConsumable => Consumables.Any();
 
         public event EventHandler<string> OnActionPerformed;
         public event EventHandler OnKilled;
-        protected LivingEntity(string name, int maximumHitPoints, int currentHitPoints,int gold, int level = 1)
-        {   
+        protected LivingEntity(string name, int maximumHitPoints, int currentHitPoints, int gold, int level = 1)
+        {
             Name = name;
             MaximumHitPoints = maximumHitPoints;
             CurrentHitPoints = currentHitPoints;
@@ -98,6 +117,15 @@ namespace Engine.Models
         public void UseCurrentWeapon(LivingEntity target)
         {
             CurrentWeapon.PerformAction(this, target);
+        }
+        public void UseCurrentConsumable()
+        {
+            if (CurrentConsumable != null)
+            {
+                CurrentConsumable.PerformAction(this, this);
+                RemoveItemFromInventory(CurrentConsumable);
+            }
+            return;
         }
         public void TakeDamage(int damage)
         {
@@ -150,16 +178,18 @@ namespace Engine.Models
                     (gi => gi.Item.ItemTypeID == item.ItemTypeID).Quantity++;
             }
             OnPropertyChanged(nameof(Weapons));
+            OnPropertyChanged(nameof(Consumables));
+            OnPropertyChanged(nameof(HasConsumable));
         }
         public void RemoveItemFromInventory(GameItem item)
         {
             Inventory.Remove(item);
 
-            GroupedInventoryItem groupedInventoryItemToRemove = item.IsUnique?
-                GroupedInventory.FirstOrDefault(gi => gi.Item == item):
-                GroupedInventory.FirstOrDefault(gi =>gi.Item.ItemTypeID == item.ItemTypeID);
+            GroupedInventoryItem groupedInventoryItemToRemove = item.IsUnique ?
+                GroupedInventory.FirstOrDefault(gi => gi.Item == item) :
+                GroupedInventory.FirstOrDefault(gi => gi.Item.ItemTypeID == item.ItemTypeID);
 
-            if (groupedInventoryItemToRemove != null) 
+            if (groupedInventoryItemToRemove != null)
             {
                 if (groupedInventoryItemToRemove.Quantity == 1)
                 {
@@ -171,6 +201,32 @@ namespace Engine.Models
                 }
             }
             OnPropertyChanged(nameof(Weapons));
+            OnPropertyChanged(nameof(Consumables));
+            OnPropertyChanged(nameof(HasConsumable));
+        }
+        public void RemoveItemsFromInventory(List<ItemQuantity> itemQuantities)
+        {
+            foreach (ItemQuantity itemQuantity in itemQuantities)
+            {
+                for (int i = 0; i < itemQuantity.Quantity; i++)
+                {
+                    RemoveItemFromInventory(Inventory.First(item => 
+                    item.ItemTypeID == itemQuantity.ItemID));
+                }
+            }
+        }
+        public bool HasAllTheseItems(List<ItemQuantity> items)
+        {
+            foreach(ItemQuantity item in items)
+            {
+                if (Inventory.Count(i =>i.ItemTypeID ==item.ItemID) < 
+                    item.Quantity)
+                {
+                    return false;   
+                }
+
+            }
+            return true;
         }
         private void RaiseOnKilledEvent()
         {

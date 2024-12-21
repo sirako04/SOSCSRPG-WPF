@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Models
 {
@@ -37,6 +31,7 @@ namespace Engine.Models
         }
        
         public ObservableCollection<QuestStatus> Quests { get; }
+        public ObservableCollection<Recipe> Recipes { get; }
 
         public event EventHandler OnLeveledUp;
         public Player(string name, string characterClass, int experiencePoints,
@@ -46,21 +41,18 @@ namespace Engine.Models
             CharacterClass = characterClass;
             ExperiencePoints = experiencePoints;
             Quests = new ObservableCollection<QuestStatus>();
-        }
-        public bool HasAllItems(List<ItemQuantity> items)
-        {
-            foreach (ItemQuantity item in items)
-            {
-                if (Inventory.Count((i => i.ItemTypeID == item.ItemID)) < item.Quantity)
-                {
-                    return false;
-                }
-            }
-            return true;
+            Recipes = new ObservableCollection<Recipe>();
         }
         public void AddExperience(int expToAdd)
         {
             ExperiencePoints += expToAdd;
+        }
+        public void LearnRecipe(Recipe recipe)
+        {
+            if (!Recipes.Any(r => r.ID == recipe.ID))
+            {        
+                Recipes.Add(recipe);
+            }
         }
         public void SetLevelAndMaximumHitPoints()
         {

@@ -1,9 +1,4 @@
 ﻿using Engine.Actions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Models
 {
@@ -12,16 +7,17 @@ namespace Engine.Models
         public enum ItemCategory
         {
             Miscellaneous,
-            Weapon
+            Weapon,
+            Consumable
         }
         public ItemCategory Category { get; set; }
         public int ItemTypeID { get; }
         public string Name { get; }
         public int Price { get; }
         public bool IsUnique { get; } 
-       public AttackWithWeapon Action { get; set; }
+       public IAction Action { get; set; }
         public GameItem(ItemCategory category, int itemTypeID, string name, int price,
-            bool isUnique = false, AttackWithWeapon action = null)
+            bool isUnique = false, IAction action = null)
         {
             Category = category;
             ItemTypeID = itemTypeID;

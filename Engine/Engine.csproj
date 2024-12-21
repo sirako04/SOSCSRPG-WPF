@@ -47,10 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\AttackWithWeapon.cs" />
+    <Compile Include="Actions\BaseAction.cs" />
+    <Compile Include="Actions\Heal.cs" />
+    <Compile Include="Actions\IAction.cs" />
     <Compile Include="EventArgs\GameMessageEventArgs.cs" />
     <Compile Include="Factories\ItemFactory.cs" />
     <Compile Include="Factories\MonsterFactory.cs" />
     <Compile Include="Factories\QuestFactory.cs" />
+    <Compile Include="Factories\RecipeFactory.cs" />
     <Compile Include="Factories\TraderFactory.cs" />
     <Compile Include="Models\GroupedInventoryItem.cs" />
     <Compile Include="Models\ItemQuantity.cs" />
@@ -59,6 +63,7 @@
     <Compile Include="Models\MonsterEncounter.cs" />
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\QuestStatus.cs" />
+    <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\Trader.cs" />
     <Compile Include="Models\GameItem.cs" />
     <Compile Include="Notification.cs" />

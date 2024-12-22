@@ -222,6 +222,11 @@ namespace Engine.ViewModels
         }
         public void AttackCurrentMonster()
         {
+            if (CurrentMonster == null) 
+            {
+                RaiseMessage("No monster here to attack!!");
+                return;
+            }
             if (CurrentPlayer.CurrentWeapon == null)
             {
                 RaiseMessage("You must select a Weapon to attack.");
@@ -241,7 +246,11 @@ namespace Engine.ViewModels
         }
         public void UseCurrentConsumable()
         {
-            CurrentPlayer.UseCurrentConsumable();
+            if (CurrentPlayer.CurrentConsumable != null)
+            {
+                CurrentPlayer.UseCurrentConsumable();  
+            }
+            RaiseMessage("You don`t have consumable items");
         }
         public void CraftItemUsing(Recipe recipe)
         {

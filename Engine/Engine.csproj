@@ -114,10 +114,12 @@
     <Resource Include="Images\Monsters\spider.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GameData\GameItems.xml">
+    <None Include="GameData\GameItems.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GameData\Locations.xml" />
+    </None>
+    <None Include="GameData\Locations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

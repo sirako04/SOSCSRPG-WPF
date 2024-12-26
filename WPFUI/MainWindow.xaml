@@ -194,7 +194,7 @@
                                                 Binding="{Binding PlayerQuest.Name, Mode=OneWay}"
                                                 Width="*"/>
                             <DataGridTextColumn Header="Done?"
-                                                Binding="{Binding IsCompleted, Mode=OneWay}"
+                                                Binding="{Binding IsCompleted, Mode=OneWay, Converter={StaticResource BooleanToTextConverter}}"
                                                 Width="Auto"/>
                         </DataGrid.Columns>
                     </DataGrid>

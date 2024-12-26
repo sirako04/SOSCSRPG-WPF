@@ -6,5 +6,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <converters:FileToBitMapConverter x:Key="FileToBitmapConverter"/>
+        <converters:BooleanToText x:Key="BooleanToTextConverter"/>
     </Application.Resources>
 </Application>

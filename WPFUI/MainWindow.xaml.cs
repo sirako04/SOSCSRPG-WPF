@@ -103,7 +103,7 @@ namespace WPFUI
         {
             foreach (object item in PlayerDataTabControl.Items)
             {
-                if (item is TabItem tabItem)
+                if (item is TabItem tabItem) //  it means tabItem = item as TabItem (object)
                 {
                     if (tabItem.Name == tabName)
                     {

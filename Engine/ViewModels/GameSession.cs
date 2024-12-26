@@ -170,18 +170,18 @@ namespace Engine.ViewModels
                         // remove the quest completion items from the player inventory
                         CurrentPlayer.RemoveItemsFromInventory(quest.ItemsToComplete);
                         RaiseMessage("");
-                        RaiseMessage($"You completed the {quest.Name} quest.");
+                        RaiseMessage($" You completed the {quest.Name} quest.");
 
-                        RaiseMessage($"You receive {quest.RewardEXP} EXP.");
+                        RaiseMessage($" You receive {quest.RewardEXP} EXP.");
                         CurrentPlayer.AddExperience(quest.RewardEXP);
 
-                        RaiseMessage($"You receive {quest.RewardGold} gold.");
+                        RaiseMessage($" You receive {quest.RewardGold} gold.");
                         CurrentPlayer.ReceiveGold(quest.RewardGold);
 
                         foreach (ItemQuantity itemQuantity in quest.RewardItems)
                         {
                             GameItem rewarditem = ItemFactory.CreateGameItem(itemQuantity.ItemID);
-                            RaiseMessage($"You receive a {rewarditem.Name}");
+                            RaiseMessage($" You receive a {rewarditem.Name}");
                             CurrentPlayer.AddItemToInventory(rewarditem);
                         }
                         questToComplete.IsCompleted = true;
@@ -202,16 +202,14 @@ namespace Engine.ViewModels
                     RaiseMessage("Return with:");
                     foreach (ItemQuantity itemQuantity in quest.ItemsToComplete)
                     {
-                        RaiseMessage($"{itemQuantity.Quantity}" +
-                       $"{ItemFactory.CreateGameItem(itemQuantity.ItemID).Name}");
+                        RaiseMessage($"{itemQuantity.Quantity} {ItemFactory.CreateGameItem(itemQuantity.ItemID).Name}");
                     }
                     RaiseMessage("And you will receive:");
                     RaiseMessage($"  {quest.RewardEXP} experience points");
                     RaiseMessage($"  {quest.RewardGold} gold");
                     foreach (ItemQuantity itemQuantity in quest.RewardItems)
                     {
-                        RaiseMessage($"{itemQuantity.Quantity}" +
-                            $"{ItemFactory.CreateGameItem(itemQuantity.ItemID).Name}");
+                        RaiseMessage($"{itemQuantity.Quantity} {ItemFactory.CreateGameItem(itemQuantity.ItemID).Name}");
                     }
                 }
             }

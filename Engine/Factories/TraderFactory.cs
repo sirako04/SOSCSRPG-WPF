@@ -1,37 +1,50 @@
 ﻿using Engine.Models;
+using Engine.Shared;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml;
 
 namespace Engine.Factories
 {
     public static class TraderFactory
     {
+        private const string GAME_DATA_FILENAME = ".\\GameData\\Traders.xml";
         private static readonly List<Trader> _traders = new List<Trader>();
         static TraderFactory() 
         {
-            Trader susan = new Trader("Susan");
-            susan.AddItemToInventory(ItemFactory.CreateGameItem(1001));
-            Trader farmerTed = new Trader("Farmer Ted");
-            farmerTed.AddItemToInventory(ItemFactory.CreateGameItem(1001));
-            Trader peteTheHerbalist = new Trader("Pete the Herbalist");
-            peteTheHerbalist.AddItemToInventory(ItemFactory.CreateGameItem(1001));
-            AddTraderToList(susan);
-            AddTraderToList(farmerTed);
-            AddTraderToList(peteTheHerbalist);
-
-        }
-        public static Trader GetTraderByName(string name)
-        {
-            return _traders.FirstOrDefault(t => t.Name == name);
-        }
-        private static void AddTraderToList(Trader trader)
-        {
-            if (_traders.Any(t => t.Name == trader.Name))
+            if (File.Exists(GAME_DATA_FILENAME))
             {
-                throw new ArgumentException($"There is already a trader named '{trader.Name}'");
+                XmlDocument data = new XmlDocument();
+                data.LoadXml(File.ReadAllText(GAME_DATA_FILENAME));
+                LoadTradersFromNodes(data.SelectNodes("Traders/Trader"));
             }
-            _traders.Add(trader);
+            else
+            {
+               throw new FileNotFoundException($"{GAME_DATA_FILENAME} not found!!");
+            }
         }
+        private static void LoadTradersFromNodes(XmlNodeList nodes)
+        {
+            foreach (XmlNode node in nodes)
+            {
+                Trader trader = new Trader(node.AttributeAsInt("ID"),
+                    node.SelectSingleNode("./Name")?.InnerText ?? "");
+                foreach (XmlNode childnode in node.SelectNodes("./InventoryItems/Item"))
+                {
+                    int quantity = childnode.AttributeAsInt("Quantity");
+                    for (int i = 0; i < quantity; i++)
+                    {
+                        trader.AddItemToInventory(ItemFactory.CreateGameItem(childnode.AttributeAsInt("ID")));
+                    }
+                }
+                _traders.Add(trader);
+            }
+        }
+        public static Trader GetTraderByID(int id)
+        {
+            return _traders.FirstOrDefault(t => t.ID == id);
+        }     
     }
 }

@@ -11,7 +11,6 @@ namespace Engine.ViewModels
         public event EventHandler<GameMessageEventArgs> OnMessageRaised;
 
         #region Properties
-     //   private const string BGM_FILE = "TownSlowed.wav";
 
         private Trader _currentTrader;
         private Location _currentLocation;
@@ -244,6 +243,7 @@ namespace Engine.ViewModels
             else
             {
                 CurrentMonster.UseCurrentWeapon(CurrentPlayer);
+
             }
 
         }
@@ -321,6 +321,10 @@ namespace Engine.ViewModels
         private void RaiseMessage(string message)
         {
             OnMessageRaised?.Invoke(this, new GameMessageEventArgs(message));
+        }
+        public void PlayingMusic(string filepath)
+        {
+            Sound.Playing(filepath);
         }
     }
 }

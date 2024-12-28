@@ -12,6 +12,7 @@ namespace WPFUI
     /// </summary>
     public partial class TradeScreen : Window
     {
+        private const string BGM_FILE = @"D:\audio\ShopMusic.wav";
         public GameSession Session => DataContext as GameSession;
         public TradeScreen()
         {
@@ -53,6 +54,7 @@ namespace WPFUI
         private void OnClick_Close(object sender, RoutedEventArgs e)
         {
             Close();
+            Sound.Stop(BGM_FILE);
         }   
     }
 }

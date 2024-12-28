@@ -9,11 +9,21 @@ namespace Engine
 {
     public  static class Sound
     {
-        public  static Task Playing(string file)
+        public static Task Playing(string file)
         {
-            SoundPlayer soundPlayer = new SoundPlayer();
-            soundPlayer.SoundLocation = AppDomain.CurrentDomain.BaseDirectory +file;
-            if (soundPlayer.SoundLocation != null && soundPlayer.IsLoadCompleted)
+            bool isPlaying = false;
+
+            SoundPlayer soundPlayer = new SoundPlayer
+            {
+                SoundLocation = file
+            };
+
+            if (isPlaying)
+            {
+                return null; 
+            }
+
+            if (soundPlayer.SoundLocation != null)
             {       
                 soundPlayer.PlayLooping();
             }
@@ -21,7 +31,16 @@ namespace Engine
             {
                 throw new ArgumentException($" {file} not found!");
             }
+            
             return Task.CompletedTask;
+        }
+        public static void Stop(string file) 
+        {
+            SoundPlayer soundPlayer = new SoundPlayer();
+            soundPlayer.SoundLocation = file;
+            
+                soundPlayer.Stop();
+                return;            
         }
     }
 }

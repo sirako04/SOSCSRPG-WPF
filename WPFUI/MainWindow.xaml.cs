@@ -15,6 +15,8 @@ namespace WPFUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const string BGM_FILE = @"D:\audio\ShopMusic.wav";
+
         private readonly GameSession _gameSession = new GameSession();
         private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
         public MainWindow()
@@ -71,6 +73,7 @@ namespace WPFUI
                     Owner = this,
                     DataContext = _gameSession
                 };
+                _gameSession.PlayingMusic(BGM_FILE);
                 tradeScreen.ShowDialog();
             }
         }

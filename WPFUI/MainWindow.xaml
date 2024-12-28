@@ -10,11 +10,11 @@
         mc:Ignorable="d" 
         FontSize="12pt"
         FontFamily="Times New Roman Bold"
-        Title="The SMT RPG" Height="768" Width="1024"
-        KeyDown="MainWindow_OnKeyDown">
+        Title=" Megaten RPG" Height="768" Width="1024"
+        KeyDown="MainWindow_OnKeyDown" Background="White">
     <!--xmlns:local is there so that the DataBinding will work 
             otherwise it is not Binding Data (idk why tho) -->
-    
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
@@ -31,10 +31,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-            <!--Menu-->
-        <Label Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Content="Menu" Background="Salmon"></Label>
+        <!--Menu-->
+        <Label Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Content="Menu" Background="Thistle"/>
 
-                <!--Player Stats-->
+        <!--Player Stats-->
         <Grid Grid.Row="1" Grid.Column="0" Background="Aquamarine">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -55,27 +55,27 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Class:"/>
             <Label x:Name="PlayerClass_value" Grid.Row="1" Grid.Column="1"
                    Content="{Binding CurrentPlayer.CharacterClass}"/>
-            
+
             <Label Grid.Row="2" Grid.Column="0" Content="HP:"/>
             <Label x:Name="PlayerHP_value" Grid.Row="2" Grid.Column="1" 
                    Content="{Binding CurrentPlayer.CurrentHitPoints}"/>
-            
+
             <Label Grid.Row="3" Grid.Column="0" Content="Gold:"/>
             <Label x:Name="PlayerGold_value" Grid.Row="3" Grid.Column="1" 
                    Content="{Binding CurrentPlayer.Gold}"/>
-            
+
             <Label Grid.Row="4" Grid.Column="0" Content="XP:"/>
             <Label x:Name="PlayerXP_value" Grid.Row="4" Grid.Column="1" 
                    Content="{Binding CurrentPlayer.ExperiencePoints}"/>
-            
+
             <Label Grid.Row="5" Grid.Column="0" Content="Level"/>
             <Label x:Name="PlayerLevel_value" Grid.Row="5" Grid.Column="1" 
                    Content="{Binding CurrentPlayer.Level}">
-              
+
             </Label>
         </Grid>
 
-                <!--Gameplay-->
+        <!--Gameplay-->
         <Grid Grid.Row="1" Grid.Column="1" Background="Beige">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -97,9 +97,9 @@
                         <Style TargetType="{x:Type Paragraph}">
                             <Setter Property="Margin" Value="0"/>
                         </Style>
-                    </RichTextBox.Resources>                    
+                    </RichTextBox.Resources>
                 </RichTextBox>
-                
+
             </Border>
 
             <!--For the right collumn with location info-->
@@ -127,7 +127,7 @@
                                Text="{Binding CurrentLocation.Description}" TextWrapping="Wrap"/>
                 </Grid>
             </Border>
-                        <!--Displaying Monster Info-->
+            <!--Displaying Monster Info-->
             <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gainsboro"
                     BorderThickness="1">
 
@@ -157,10 +157,10 @@
                         <TextBlock Text="{Binding CurrentMonster.CurrentHitPoints}"/>
                     </StackPanel>
                 </Grid>
-            </Border>   
+            </Border>
         </Grid>
 
-                        <!--Inventory, Recipes and Quests-->
+        <!--Inventory, Recipes and Quests-->
         <Grid Grid.Row="2" Grid.Column="0" Background="BurlyWood">
             <TabControl x:Name="PlayerDataTabControl">
                 <TabItem Header="Inventory"
@@ -193,15 +193,15 @@
                             <DataGridTextColumn Header="Name" 
                                                 Binding="{Binding PlayerQuest.Name, Mode=OneWay}"
                                                 Width="*"/>
-                            
+
                             <DataGridTextColumn>
                                 <DataGridTextColumn.CellStyle>
-                                    
-                                
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip" 
+
+
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="ToolTip" 
                                                 Value="{Binding PlayerQuest.ToolTipContents}"/>
-                                </Style>
+                                    </Style>
                                 </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
 
@@ -221,8 +221,8 @@
                             <DataGridTextColumn Header="Name"
                                                 Binding="{Binding Name ,Mode=OneWay}"
                                                 Width="*"/>
-                            
-                             <DataGridTextColumn>
+
+                            <DataGridTextColumn>
                                 <DataGridTextColumn.CellStyle>
 
                                     <Style TargetType="DataGridCell">
@@ -230,8 +230,8 @@
                                                 Value="{Binding ToolTipContents}"/>
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
-                                </DataGridTextColumn>
-                            
+                            </DataGridTextColumn>
+
                             <DataGridTemplateColumn MinWidth="75">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -246,7 +246,7 @@
                 </TabItem>
             </TabControl>
         </Grid>
-               
+
         <Grid Grid.Row="2" Grid.Column="1" Background="Lavender">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -255,8 +255,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="255"/>
             </Grid.ColumnDefinitions>
-                
-                <!-- Combat controls-->
+
+            <!-- Combat controls-->
             <Grid Grid.Row="0" Grid.Column="0"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center">
@@ -276,11 +276,12 @@
                           ItemsSource="{Binding CurrentPlayer.Weapons}"
                           SelectedItem="{Binding CurrentPlayer.CurrentWeapon}"
                           DisplayMemberPath="Name"
-                          SelectedValuePath="ItemTypeID"/>
+                          SelectedValuePath="ItemTypeID">
+                </ComboBox>
                 <Button Grid.Row="0" Grid.Column="2"
                         Visibility="{Binding HasMonster,Converter={StaticResource BooleanToVisibility}}"
                         Content="Use"
-                        Click="OnClick_AttackMonster"/>
+                        Click="OnClick_AttackMonster" Background="IndianRed" BorderBrush="#FFC30606"/>
                 <ComboBox Grid.Row="1" Grid.Column="0" 
                           Visibility="{Binding CurrentPlayer.HasConsumable, Converter={StaticResource BooleanToVisibility}}"
                           ItemsSource="{Binding CurrentPlayer.Consumables}"
@@ -290,10 +291,10 @@
                 <Button Grid.Row="1" Grid.Column="2"
                         Visibility="{Binding CurrentPlayer.HasConsumable,Converter={StaticResource BooleanToVisibility}}"
                         Content="Use Healing"
-                        Click="OnClick_UseCurrentConsumable"/>
+                        Click="OnClick_UseCurrentConsumable" Background="ForestGreen" BorderBrush="#FF17B509"/>
             </Grid>
-            
-                 <!--Movement Controls-->
+
+            <!--Movement Controls-->
             <Grid Grid.Row="0" Grid.Column="1">
 
                 <Grid.RowDefinitions>
@@ -318,8 +319,8 @@
                 <Button Grid.Row="1" Grid.Column="1" 
                         Height="25" Width="65" Margin="10" 
                         Visibility="{Binding HasTrader, Converter={StaticResource BooleanToVisibility}}"
-                       Click="OnClick_DisplayTradeScreen" Content="Trade"/>
-                
+                       Click="OnClick_DisplayTradeScreen" Content="Trade" Background="RoyalBlue"/>
+
                 <Button Grid.Row="2" Grid.Column="1" Height="25"
                 Width="65" Margin="10" Click="OnClick_MoveSouth"
                 Visibility="{Binding HasLocationToSouth, Converter={StaticResource BooleanToVisibility}}"
@@ -328,11 +329,11 @@
                 Width="65" Margin="10" Click="OnClick_MoveEast" 
                  Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisibility}}"       
                 Content="East"/>
-                
+
 
             </Grid>
 
         </Grid>
     </Grid>
 </Window>
-            <!--  Icon Copyright :  "https://www.flaticon.com/de/kostenlose-icons/kampf" title="kampf Icons">Kampf Icons erstellt von Freepik - Flaticon    -->
+<!--  Icon Copyright :  "https://www.flaticon.com/de/kostenlose-icons/kampf" title="kampf Icons">Kampf Icons erstellt von Freepik - Flaticon    -->

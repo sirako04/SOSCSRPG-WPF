@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         FontSize="11pt"
         FontFamily="Times New Roman Bold"
-        Title="TradeScreen" Height="480" Width="640" Background="BlanchedAlmond">
+        Title="TradeScreen" Height="480" Width="640" Background="BlanchedAlmond" Foreground="Black">
     <Grid Margin="10" Background="LightSalmon" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -26,9 +26,9 @@
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                HorizontalAlignment="Center" Content="{Binding CurrentTrader.Name}"/>
         <Label Grid.Row="1" Grid.Column="0" 
-               HorizontalAlignment="Center" Content="Your Inventory"/>
+               HorizontalAlignment="Center" Content="Your Inventory" Foreground="#FF520808"/>
         <Label Grid.Row="1" Grid.Column="1" 
-               HorizontalAlignment="Center" Content="Trader's Inventory"/>
+               HorizontalAlignment="Center" Content="Trader's Inventory" Foreground="#FF3E0C0C"/>
 
         <DataGrid Grid.Row="2" Grid.Column="0"
                   Margin="10"
@@ -37,7 +37,7 @@
                   HeadersVisibility="Column"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
-                  VerticalScrollBarVisibility="Auto">
+                  VerticalScrollBarVisibility="Auto" Background="#FFC19797" BorderBrush="Black" Foreground="Red">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Description"
                                     IsReadOnly="True"
@@ -70,7 +70,7 @@
                   HeadersVisibility="Column"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
-                  VerticalScrollBarVisibility="Auto">
+                  VerticalScrollBarVisibility="Auto" Background="#FFC19797" Foreground="Red">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Description" 
@@ -102,6 +102,6 @@
                 HorizontalAlignment="Right"
                 Width="75"
                 Content="Close"
-                Click="OnClick_Close"/>
+                Click="OnClick_Close" Background="#FFA09090" Foreground="White" BorderBrush="#FF867B7B"/>
     </Grid>
 </Window>

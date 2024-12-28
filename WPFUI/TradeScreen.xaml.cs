@@ -1,5 +1,8 @@
-﻿using Engine.Models;
+﻿using Engine;
+using Engine.Models;
 using Engine.ViewModels;
+using System.Media;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace WPFUI
@@ -13,6 +16,7 @@ namespace WPFUI
         public TradeScreen()
         {
             InitializeComponent();
+
         }
 
         private void OnClick_Sell(object sender, RoutedEventArgs e)
@@ -49,6 +53,6 @@ namespace WPFUI
         private void OnClick_Close(object sender, RoutedEventArgs e)
         {
             Close();
-        }
+        }   
     }
 }

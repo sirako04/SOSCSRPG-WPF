@@ -17,9 +17,8 @@ namespace WPFUI.CustomConverters
             if (convertedValue =="False")
             {
                 convertedValue = "Nop";
-            }
-
-            if (convertedValue == "True")
+            }      
+            else
             {
                 convertedValue = "Yes";
             }

@@ -11,6 +11,8 @@ namespace Engine.ViewModels
         public event EventHandler<GameMessageEventArgs> OnMessageRaised;
 
         #region Properties
+     //   private const string BGM_FILE = "TownSlowed.wav";
+
         private Trader _currentTrader;
         private Location _currentLocation;
         private Monster _currentMonster;
@@ -74,6 +76,7 @@ namespace Engine.ViewModels
             }
         }
         public bool HasMonster => CurrentMonster != null;
+            
         public bool HasTrader => CurrentTrader != null;
 
         public Location CurrentLocation
@@ -122,6 +125,8 @@ namespace Engine.ViewModels
             CurrentPlayer.LearnRecipe(RecipeFactory.RecipeByID(1));
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
+            
+
         }
 
         public void MoveNorth()

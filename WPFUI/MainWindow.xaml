@@ -224,12 +224,11 @@
                             
                              <DataGridTextColumn>
                                 <DataGridTextColumn.CellStyle>
-                                    
+
                                     <Style TargetType="DataGridCell">
                                         <Setter Property="ToolTip" 
                                                 Value="{Binding ToolTipContents}"/>
                                     </Style>
-                                    
                                 </DataGridTextColumn.CellStyle>
                                 </DataGridTextColumn>
                             

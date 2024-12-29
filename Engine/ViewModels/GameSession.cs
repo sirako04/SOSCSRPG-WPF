@@ -8,6 +8,7 @@ namespace Engine.ViewModels
 {
     public class GameSession : Notification
     {
+        private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\TownSlowed.wav";
         public event EventHandler<GameMessageEventArgs> OnMessageRaised;
 
         #region Properties
@@ -220,6 +221,7 @@ namespace Engine.ViewModels
         }
         private void GetMonsterAtLocation()
         {
+            Sound.Playing(BGM_FILE);
             CurrentMonster = CurrentLocation.GetMonster();
         }
         public void AttackCurrentMonster()
@@ -235,6 +237,7 @@ namespace Engine.ViewModels
                 return;
             }
             CurrentPlayer.UseCurrentWeapon(CurrentMonster);
+           
 
             if (CurrentMonster.IsDead)
             {
@@ -290,6 +293,7 @@ namespace Engine.ViewModels
         }
         private void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
         {
+            Sound.Stop(BGM_FILE);
             RaiseMessage("");
             RaiseMessage($"You defeated the {CurrentMonster.Name}!");
             RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");

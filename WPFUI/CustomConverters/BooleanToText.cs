@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace WPFUI.CustomConverters
@@ -16,11 +13,11 @@ namespace WPFUI.CustomConverters
 
             if (convertedValue =="False")
             {
-                convertedValue = "Nop";
+                convertedValue = "Nah";
             }      
             else
             {
-                convertedValue = "Yes";
+                convertedValue = "Ya";
             }
 
             return convertedValue;

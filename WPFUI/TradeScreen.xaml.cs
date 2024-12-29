@@ -12,7 +12,7 @@ namespace WPFUI
     /// </summary>
     public partial class TradeScreen : Window
     {
-        private const string BGM_FILE = @"D:\audio\ShopMusic.wav";
+        private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\ShopMusic.wav";
         public GameSession Session => DataContext as GameSession;
         public TradeScreen()
         {

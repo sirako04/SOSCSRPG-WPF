@@ -15,8 +15,7 @@ namespace WPFUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string BGM_FILE = @"D:\audio\ShopMusic.wav";
-
+        private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\ShopMusic.wav";
         private readonly GameSession _gameSession = new GameSession();
         private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
         public MainWindow()

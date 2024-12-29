@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Media;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Engine
 {
@@ -29,7 +30,7 @@ namespace Engine
             }
             else
             {
-                throw new ArgumentException($" {file} not found!");
+                throw new FileNotFoundException($" {file} not found!");
             }
             
             return Task.CompletedTask;

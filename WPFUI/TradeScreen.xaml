@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         FontSize="11pt"
         FontFamily="Times New Roman Bold"
-        Title="TradeScreen" Height="480" Width="640" Background="BlanchedAlmond" Foreground="Black">
+        Title="TradeScreen" Height="480" Width="640" Background="BlanchedAlmond" Foreground="Black" ShowInTaskbar="False">
     <Grid Margin="10" Background="LightSalmon" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

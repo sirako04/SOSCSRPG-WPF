@@ -11,7 +11,7 @@ namespace Engine.ViewModels
         private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\TownSlowed.wav";
         public event EventHandler<GameMessageEventArgs> OnMessageRaised;
 
-        #region Properties
+        #region Properties 
 
         private Trader _currentTrader;
         private Location _currentLocation;

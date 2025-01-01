@@ -8,10 +8,11 @@ namespace Engine.ViewModels
 {
     public class GameSession : Notification
     {
-        private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\TownSlowed.wav";
+        private const string BattleTheme = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\TownSlowed.wav";
+        private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\Muladhara.wav";
         public event EventHandler<GameMessageEventArgs> OnMessageRaised;
 
-        #region Properties 
+        #region Properties
 
         private Trader _currentTrader;
         private Location _currentLocation;
@@ -95,6 +96,8 @@ namespace Engine.ViewModels
                 GivePlayerQuestsAtLocation();
                 GetMonsterAtLocation();
                 CurrentTrader = CurrentLocation.TraderHere;
+                    
+                
 
             }
         }
@@ -125,8 +128,6 @@ namespace Engine.ViewModels
             CurrentPlayer.LearnRecipe(RecipeFactory.RecipeByID(1));
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
-            
-
         }
 
         public void MoveNorth()
@@ -221,7 +222,6 @@ namespace Engine.ViewModels
         }
         private void GetMonsterAtLocation()
         {
-            Sound.Playing(BGM_FILE);
             CurrentMonster = CurrentLocation.GetMonster();
         }
         public void AttackCurrentMonster()
@@ -237,16 +237,16 @@ namespace Engine.ViewModels
                 return;
             }
             CurrentPlayer.UseCurrentWeapon(CurrentMonster);
+            Sound.Playing(BattleTheme);
            
 
             if (CurrentMonster.IsDead)
-            {
+            {                
                 GetMonsterAtLocation();
             }
             else
             {
                 CurrentMonster.UseCurrentWeapon(CurrentPlayer);
-
             }
 
         }
@@ -285,6 +285,7 @@ namespace Engine.ViewModels
         }
         private void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
         {
+            Sound.Stop(BattleTheme);
             RaiseMessage("");
             RaiseMessage(" You have been killed. ");
 
@@ -293,7 +294,7 @@ namespace Engine.ViewModels
         }
         private void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
         {
-            Sound.Stop(BGM_FILE);
+            Sound.Stop(BattleTheme);
             RaiseMessage("");
             RaiseMessage($"You defeated the {CurrentMonster.Name}!");
             RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");

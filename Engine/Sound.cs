@@ -10,37 +10,43 @@ namespace Engine
 {
     public  static class Sound
     {
+        static bool isPlaying = false;
         public static Task Playing(string file)
         {
-            bool isPlaying = false;
-
+           
             SoundPlayer soundPlayer = new SoundPlayer
             {
                 SoundLocation = file
             };
-
-            if (isPlaying)
+            if (!isPlaying)
             {
-                return null; 
-            }
 
-            if (soundPlayer.SoundLocation != null)
-            {       
-                soundPlayer.PlayLooping();
+                if (soundPlayer.SoundLocation != null)
+                {
+                    soundPlayer.PlayLooping();
+                    isPlaying = true;
+                }
+                else
+                {
+                    throw new FileNotFoundException($" {file} not found!");
+                }
             }
             else
             {
-                throw new FileNotFoundException($" {file} not found!");
+                return Task.CompletedTask;
             }
             
             return Task.CompletedTask;
         }
         public static void Stop(string file) 
         {
-            SoundPlayer soundPlayer = new SoundPlayer();
-            soundPlayer.SoundLocation = file;
-            
-                soundPlayer.Stop();
+            SoundPlayer soundPlayer = new SoundPlayer
+            {
+                SoundLocation = file
+            };
+
+            soundPlayer.Stop();
+            isPlaying = false;
                 return;            
         }
     }

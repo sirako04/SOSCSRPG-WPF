@@ -152,6 +152,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Music\Muladhara.wav" />
     <Content Include="Music\ShopMusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

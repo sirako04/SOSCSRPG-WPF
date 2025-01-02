@@ -13,11 +13,11 @@ namespace WPFUI.CustomConverters
 
             if (convertedValue =="False")
             {
-                convertedValue = "Nah";
+                convertedValue = "NO";
             }      
             else
             {
-                convertedValue = "Ya";
+                convertedValue = "YES";
             }
 
             return convertedValue;

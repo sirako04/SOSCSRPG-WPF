@@ -165,7 +165,7 @@
             <TabControl x:Name="PlayerDataTabControl">
                 <TabItem Header="Inventory"
                          x:Name="InventoryTabItem">
-                    <DataGrid  IsReadOnly="True" ItemsSource="{Binding CurrentPlayer.GroupedInventory, Mode=OneWay}" 
+                    <DataGrid  IsReadOnly="True" ItemsSource="{Binding CurrentPlayer.Inventory.GroupedInventory, Mode=OneWay}" 
                                             AutoGenerateColumns="False"
                                             HeadersVisibility="Column">
                         <DataGrid.Columns>
@@ -273,7 +273,7 @@
 
                 <ComboBox Grid.Row="0" Grid.Column="0"
                           Visibility="{Binding HasMonster,Converter={StaticResource BooleanToVisibility}}"
-                          ItemsSource="{Binding CurrentPlayer.Weapons}"
+                          ItemsSource="{Binding CurrentPlayer.Inventory.Weapons}"
                           SelectedItem="{Binding CurrentPlayer.CurrentWeapon}"
                           DisplayMemberPath="Name"
                           SelectedValuePath="ItemTypeID">
@@ -283,13 +283,13 @@
                         Content="Attack"
                         Click="OnClick_AttackMonster" Background="IndianRed" BorderBrush="#FFC30606" VerticalAlignment="Top"/>
                 <ComboBox Grid.Row="1" Grid.Column="0" 
-                          Visibility="{Binding CurrentPlayer.HasConsumable, Converter={StaticResource BooleanToVisibility}}"
-                          ItemsSource="{Binding CurrentPlayer.Consumables}"
+                          Visibility="{Binding CurrentPlayer.Inventory.HasConsumable, Converter={StaticResource BooleanToVisibility}}"
+                          ItemsSource="{Binding CurrentPlayer.Inventory.Consumables}"
                           SelectedItem="{Binding CurrentPlayer.CurrentConsumable}"
                           DisplayMemberPath="Name"/>
 
                 <Button Grid.Row="1" Grid.Column="2"
-                        Visibility="{Binding CurrentPlayer.HasConsumable,Converter={StaticResource BooleanToVisibility}}"
+                        Visibility="{Binding CurrentPlayer.Inventory.HasConsumable,Converter={StaticResource BooleanToVisibility}}"
                         Content="Use Healing"
                         Click="OnClick_UseCurrentConsumable" Background="ForestGreen" BorderBrush="#FF17B509"/>
             </Grid>

@@ -30,6 +30,7 @@ namespace WPFUI
                 Session.CurrentTrader.AddItemToInventory(groupedInventoryItem.Item);
                 Session.CurrentPlayer.RemoveItemFromInventory(groupedInventoryItem.Item);
             }
+            return;
         }
 
         private void OnClick_Buy(object sender, RoutedEventArgs e)
@@ -49,6 +50,7 @@ namespace WPFUI
                     MessageBox.Show("You dont have enough gold");
                 }
             }
+            return;
         }
 
         private void OnClick_Close(object sender, RoutedEventArgs e)

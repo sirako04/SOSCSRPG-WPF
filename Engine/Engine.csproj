@@ -50,12 +50,14 @@
     <Compile Include="Actions\BaseAction.cs" />
     <Compile Include="Actions\Heal.cs" />
     <Compile Include="Actions\IAction.cs" />
+    <Compile Include="EventArgs\CombatVictoryEventArgs.cs" />
     <Compile Include="EventArgs\GameMessageEventArgs.cs" />
     <Compile Include="Factories\ItemFactory.cs" />
     <Compile Include="Factories\MonsterFactory.cs" />
     <Compile Include="Factories\QuestFactory.cs" />
     <Compile Include="Factories\RecipeFactory.cs" />
     <Compile Include="Factories\TraderFactory.cs" />
+    <Compile Include="Models\Battle.cs" />
     <Compile Include="Models\GroupedInventoryItem.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\ItemPercentage.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="RandomNumberGenerator.cs" />
     <Compile Include="Services\InventoryService.cs" />
     <Compile Include="Services\LoggingService.cs" />
+    <Compile Include="Services\MessageBroker.cs" />
     <Compile Include="Shared\ExtensionMethods.cs" />
     <Compile Include="Sound.cs" />
     <Compile Include="ViewModels\GameSession.cs" />

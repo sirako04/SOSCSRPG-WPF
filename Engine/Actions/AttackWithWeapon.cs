@@ -1,5 +1,7 @@
 ﻿using Engine.Models;
+using Engine.Services;
 using System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Engine.Actions
 {
@@ -30,15 +32,17 @@ namespace Engine.Actions
             string actorname =(actor is Player)? "You": $"The {actor.Name.ToLower()}";
             string targetname =(target is Player)? "you": $"the {target.Name.ToLower()}";
 
-            int damage = RandomNumberGenerator.NumberBetween(_minimumDamage, _maximumDamage);
-            if (damage == 0)
+            if (CombatService.AttackSucceeded(actor, target))
             {
-                ReportResult($"{actorname} missed {targetname}. ");                     
+                int damage = RandomNumberGenerator.NumberBetween(_minimumDamage, _maximumDamage);
+                ReportResult($"{actorname} hit {targetname} for {damage} point{(damage > 1 ? "s" : "")}.");
+                
+                target.TakeDamage(damage);
+                                    
             }
             else
             {
-                ReportResult($"{actorname} hit {targetname} for {damage} point{(damage >1? "s":"")}.");
-                target.TakeDamage(damage);
+                ReportResult($"{actorname} missed {targetname}. ");
             }
         }
     }

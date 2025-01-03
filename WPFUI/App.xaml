@@ -8,5 +8,6 @@
     <Application.Resources>
         <converters:FileToBitMapConverter x:Key="FileToBitmapConverter"/>
         <converters:BooleanToText x:Key="BooleanToTextConverter"/>
+        <converters:ColoringFromBoolean x:Key="ColoringFromBoolean"/>
     </Application.Resources>
 </Application>

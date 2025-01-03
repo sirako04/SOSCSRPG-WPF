@@ -11,17 +11,17 @@ namespace Engine.ViewModels
     public class GameSession : Notification
     {
         private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
-        private Battle _currentBattle;
-
         private const string BattleTheme = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\TownSlowed.wav";
         private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\Muladhara.wav";
 
         #region Properties
 
+        private Battle _currentBattle;
         private Trader _currentTrader;
         private Location _currentLocation;
         private Monster _currentMonster;
         private Player _currentPlayer;
+        public string Version { get; } = "0.1.000";
         public World CurrentWorld { get; }
         public Player CurrentPlayer
         {
@@ -117,17 +117,27 @@ namespace Engine.ViewModels
         #endregion
         public GameSession()
         {
-            CurrentPlayer = new Player("Sirak", "Fighter", 0, 15, 15, 50);
+            CurrentWorld = WorldFactory.CreateWorld();
+            int dexterity = RandomNumberGenerator.NumberBetween(5, 19);
+            
+            CurrentPlayer = new Player("Sirak", "Fighter", 0, 15, 15, dexterity, 50);
 
             if (!CurrentPlayer.Inventory.Weapons.Any())
             {
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
             }
-
             CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(2001));
             CurrentPlayer.LearnRecipe(RecipeFactory.RecipeByID(1));
-            CurrentWorld = WorldFactory.CreateWorld();
+            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3001));
+            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3002));
+            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3003));
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
+        }
+        public GameSession(Player player, int xCoordinate, int yCoordinate)
+        {
+            CurrentWorld = WorldFactory.CreateWorld();
+            CurrentPlayer = player;
+            CurrentLocation = CurrentWorld.LocationAt(xCoordinate, yCoordinate);
         }
 
         public void MoveNorth()

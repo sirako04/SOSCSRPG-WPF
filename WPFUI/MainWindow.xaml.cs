@@ -8,6 +8,7 @@ using Engine.EventArgs;
 using Engine.Models;
 using Engine.ViewModels;
 using Engine.Services;
+using System.ComponentModel;
 
 namespace WPFUI
 {
@@ -15,7 +16,7 @@ namespace WPFUI
     {
         private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
         private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\ShopMusic.wav";
-        private readonly GameSession _gameSession = new GameSession();
+        private readonly GameSession _gameSession;
         private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
         public MainWindow()
         {
@@ -25,6 +26,7 @@ namespace WPFUI
             InitializeUserInputActions();
 
             _messageBroker.OnMessageRaised += OnGameMessageRaised;
+            _gameSession = SaveGameService.LoadLastSaveOrCreateNew();
             DataContext = _gameSession;
         }
 
@@ -113,6 +115,10 @@ namespace WPFUI
                     }
                 }
             }
+        }
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            SaveGameService.Save(_gameSession);
         }
     }
 }

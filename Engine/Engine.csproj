@@ -166,6 +166,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Images\Monsters\Skeleton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Music\Muladhara.wav" />
     <Content Include="Music\ShopMusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

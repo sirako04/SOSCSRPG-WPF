@@ -1,24 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Monsters RootImagePath="/Images/Monsters/">
-	<Monster ID="1" Name="Snake" MaximumHitPoints="10" WeaponID="1501" RewardXP="5" Gold="2" ImageName="Snake.png">
+	<Monster ID="1" Name="Snake" MaximumHitPoints="7" WeaponID="1501" RewardXP="10" Gold="5" ImageName="Snake.png">
 		<Dexterity>15</Dexterity>
 		<LootItems>
 			<LootItem ID="9001" Percentage="25"/>
 			<LootItem ID="9002" Percentage="75"/>
 		</LootItems>
 	</Monster>
-	<Monster ID="2" Name="Rat" MaximumHitPoints="12" WeaponID="1502" RewardXP="5" Gold="4" ImageName="Rat.png">
+	<Monster ID="2" Name="Rat" MaximumHitPoints="18" WeaponID="1502" RewardXP="15" Gold="8" ImageName="Rat.png">
 		<Dexterity>10</Dexterity>
 		<LootItems>
 			<LootItem ID="9003" Percentage="25"/>
 			<LootItem ID="9004" Percentage="75"/>
 		</LootItems>
 	</Monster>
-	<Monster ID="3" Name="Giant Spider" MaximumHitPoints="25" WeaponID="1503" RewardXP="10" Gold="10" ImageName="GiantSpider.png">
+	<Monster ID="3" Name="Giant Spider" MaximumHitPoints="30" WeaponID="1503" RewardXP="25" Gold="13" ImageName="GiantSpider.png">
 		<Dexterity>12</Dexterity>
 		<LootItems>
 			<LootItem ID="9005" Percentage="25"/>
 			<LootItem ID="9006" Percentage="75"/>
+		</LootItems>
+	</Monster>
+	<Monster ID="4" Name="Skeleton" MaximumHitPoints="150" WeaponID="1504" RewardXP="150" Gold="125" ImageName="Skeleton.png">
+		<Dexterity>20</Dexterity>
+		<LootItems>			
+			<LootItem ID="1003" Percentage="100"/>
 		</LootItems>
 	</Monster>
 </Monsters>

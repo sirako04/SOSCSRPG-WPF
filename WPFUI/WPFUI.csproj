@@ -68,6 +68,9 @@
     <Compile Include="TradeScreen.xaml.cs">
       <DependentUpon>TradeScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\YesOrNoWindow.xaml.cs">
+      <DependentUpon>YesOrNoWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +84,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="TradeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\YesOrNoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

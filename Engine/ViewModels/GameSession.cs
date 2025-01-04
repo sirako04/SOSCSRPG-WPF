@@ -5,6 +5,7 @@ using Engine.Factories;
 using Engine.EventArgs;
 using Engine.Services;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace Engine.ViewModels
 {
@@ -22,6 +23,8 @@ namespace Engine.ViewModels
         private Monster _currentMonster;
         private Player _currentPlayer;
         public string Version { get; } = "0.1.000";
+        
+        [JsonIgnore]
         public World CurrentWorld { get; }
         public Player CurrentPlayer
         {
@@ -44,6 +47,7 @@ namespace Engine.ViewModels
 
             }
         }
+        [JsonIgnore]
         public Monster CurrentMonster
         {
             get { return _currentMonster; }
@@ -66,6 +70,7 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasMonster));
             }
         }
+        [JsonIgnore]
         public Trader CurrentTrader
         {
             get { return _currentTrader; }
@@ -76,10 +81,7 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasTrader));
             }
         }
-        public bool HasMonster => CurrentMonster != null;
             
-        public bool HasTrader => CurrentTrader != null;
-
         public Location CurrentLocation
         {
             get { return _currentLocation; }
@@ -96,24 +98,41 @@ namespace Engine.ViewModels
                 GivePlayerQuestsAtLocation();
                 CurrentMonster = CurrentLocation.GetMonster();
                 CurrentTrader = CurrentLocation.TraderHere;
-                    
-                
+
+                if(CurrentLocation == CurrentWorld.LocationAt(0, -1))
+                {
+                    Sound.Stop(BGM_FILE);
+                    Sound.Playing(BGM_FILE);
+                }
+                else
+                {
+                    Sound.Stop(BGM_FILE);
+                }
+
+
 
             }
         }
+        
+        [JsonIgnore]
         public bool HasLocationToNorth => CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
-
+        
+        [JsonIgnore]
         public bool HasLocationToEast => CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
 
-
+        [JsonIgnore]
         public bool HasLocationToSouth => CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
-
-
+        
+        [JsonIgnore]
         public bool HasLocationToWest => CurrentWorld.LocationAt
             (CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
+        [JsonIgnore]
+        public bool HasMonster => CurrentMonster != null;
+        [JsonIgnore]
+        public bool HasTrader => CurrentTrader != null;
         #endregion
         public GameSession()
         {
@@ -274,7 +293,6 @@ namespace Engine.ViewModels
             Sound.Stop(BattleTheme);
             _messageBroker.RaiseMessage("");
             _messageBroker.RaiseMessage(" You have been killed. ");
-
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
             CurrentPlayer.CompletelyHeal();
         }

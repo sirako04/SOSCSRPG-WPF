@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Engine.Services;
-
+using Newtonsoft.Json;
 namespace Engine.Models
 {
     public abstract class LivingEntity : Notification
@@ -116,7 +116,9 @@ namespace Engine.Models
                 OnPropertyChanged();
             }
         }
+        [JsonIgnore]
         public bool IsAlive => CurrentHitPoints > 0;
+        [JsonIgnore]
         public bool IsDead => !IsAlive;
 
         public event EventHandler<string> OnActionPerformed;

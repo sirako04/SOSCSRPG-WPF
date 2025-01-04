@@ -19,6 +19,12 @@
 		<Description><![CDATA[The shop of Susan, the trader.]]></Description>
 		<Trader ID ="1"/>
 	</Location>
+	<Location X="-2" Y="0" Name="Depths of the Forest" ImageName="SpiderForest.png">
+		<Description><![CDATA[You feel a high amount of uncertainty in this Forest... ]]></Description>
+		<Monsters>
+			<Monster ID="4" Percent="100"/>
+		</Monsters>
+	</Location>
 	<Location X="0" Y="0" Name="Town Square" ImageName="TownSquare.png">
 		<Description><![CDATA[You see a fountain here.]]></Description>
 	</Location>

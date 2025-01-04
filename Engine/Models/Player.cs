@@ -36,7 +36,7 @@ namespace Engine.Models
         }
         public bool CriticalHealth
         {
-            get => (int)(MaximumHitPoints / 4) > CurrentHitPoints;
+            get => (int)(MaximumHitPoints / 4) >= CurrentHitPoints;
         }
 
         public ObservableCollection<QuestStatus> Quests { get; }

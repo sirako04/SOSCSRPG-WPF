@@ -11,7 +11,7 @@
         FontSize="12pt"
         FontFamily="Times New Roman Bold"
         Title=" Megaten RPG" Height="768" Width="1024"
-        KeyDown="MainWindow_OnKeyDown" Background="White">
+        KeyDown="MainWindow_OnKeyDown" Background="White" Closing="MainWindow_OnClosing">
     <!--xmlns:local is there so that the DataBinding will work 
             otherwise it is not Binding Data (idk why tho) -->
 
@@ -32,7 +32,28 @@
         </Grid.ColumnDefinitions>
 
         <!--Menu-->
-        <Label Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Content="Menu" Background="#FFB8DC6E" Opacity="0.8"/>
+        <Menu Grid.Row="0" Grid.Column="0"  
+              Grid.ColumnSpan="2" FontSize="12pt"
+              Background="#FFB8DC6E" Opacity="0.8">
+            <MenuItem Header="File">
+                <MenuItem Header="Start New Game" Click="StartNewGame_OnClick"/>
+                <Separator/>
+                <MenuItem Header="Load Game"
+                          Click="LoadGame_OnClick"/>
+                <MenuItem Header="Save Game"
+                          Click="SaveGame_OnClick"/>
+                <Separator/>
+                <MenuItem Header="Exit"
+                          Click="Exit_OnClick"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="Help"
+                          IsEnabled="False"/>
+                <Separator/>
+                <MenuItem Header="About"
+                          IsEnabled="False"/>
+            </MenuItem>
+        </Menu>
 
         <!--Player Stats-->
         <Grid Grid.Row="1" Grid.Column="0" Background="Aquamarine">
@@ -61,9 +82,16 @@
             <Label Grid.Row="2" Grid.Column="1" x:Name="PlayerDexterity_Value" Content="{Binding CurrentPlayer.Dexterity}"/>
 
             <Label Grid.Row="3" Grid.Column="0" Content="HP:"/>
-            <Label x:Name="PlayerHP_Value" Grid.Row="3" Grid.Column="1" 
-                   Content="{Binding CurrentPlayer.CurrentHitPoints, Converter={StaticResource ColoringFromBoolean}}"/>
-           
+
+            <TextBlock Text="{Binding CurrentPlayer.CurrentHitPoints}" Margin="0,5,0,0" x:Name="PlayerHP_Value" Grid.Row="3" Grid.Column="1">
+                <TextBlock.Foreground>
+                    <MultiBinding Converter="{StaticResource ColoringFromBoolean}">
+                        <Binding Path="CurrentPlayer.CurrentHitPoints"/>
+                        <Binding Path="CurrentPlayer.MaximumHitPoints"/>
+                    </MultiBinding>
+                </TextBlock.Foreground>
+            </TextBlock>
+
             <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" FontWeight="Bold" FontSize="17.5" Content="/"/>
             <Label Grid.Row="3" Grid.Column="2" Margin="0,0,40,0" Content="{Binding CurrentPlayer.MaximumHitPoints}"/>
 

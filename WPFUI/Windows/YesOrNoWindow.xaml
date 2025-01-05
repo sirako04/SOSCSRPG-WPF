@@ -13,7 +13,12 @@
         Width="250"
         Background="Beige"
         SizeToContent="WidthAndHeight">
-    <Grid Margin="5,5,5,5">
+    <Window.Resources>
+        <Storyboard x:Key="WindowFadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="1" Duration="0:0:1"/>
+        </Storyboard>
+    </Window.Resources>
+    <Grid Margin="5,5,5,5" RenderTransformOrigin="2,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -30,12 +35,20 @@
                 Content="Yes"
                 Width="75"
                 HorizontalAlignment="Left"
-                Click="Yes_OnClick" Foreground="GhostWhite" Background="LawnGreen"/>
+                Click="Yes_OnClick" Foreground="GhostWhite" Background="LawnGreen" BorderBrush="#FF5AFF00">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
         <Button Grid.Row="2" Grid.Column="1"
          Content="No"
          Width="75"
          HorizontalAlignment="Right"
-         Click="No_OnClick" Foreground="GhostWhite" Background="Red"/>
+         Click="No_OnClick" Foreground="GhostWhite" Background="Red" BorderBrush="Red">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
     </Grid>
 </Window>

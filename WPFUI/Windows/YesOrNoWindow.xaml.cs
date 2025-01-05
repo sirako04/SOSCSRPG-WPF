@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media.Animation;
 
 namespace WPFUI.Windows
 {
@@ -14,6 +15,9 @@ namespace WPFUI.Windows
             InitializeComponent();
             Title = title;
             Message.Content = message;
+
+            var fadeInStoryboard = (Storyboard)this.Resources["WindowFadeInStoryboard"];
+            fadeInStoryboard.Begin(this);
         }
         private void Yes_OnClick(object sender, RoutedEventArgs e)
         {

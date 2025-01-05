@@ -91,7 +91,6 @@
                     </MultiBinding>
                 </TextBlock.Foreground>
             </TextBlock>
-
             <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" FontWeight="Bold" FontSize="17.5" Content="/"/>
             <Label Grid.Row="3" Grid.Column="2" Margin="0,0,40,0" Content="{Binding CurrentPlayer.MaximumHitPoints}"/>
 
@@ -102,11 +101,10 @@
             <Label Grid.Row="5" Grid.Column="0" Content="XP:"/>
             <Label x:Name="PlayerXP_Value" Grid.Row="5" Grid.Column="1" 
                    Content="{Binding CurrentPlayer.ExperiencePoints}"/>
-
+            
             <Label Grid.Row="6" Grid.Column="0" Content="Level"/>
             <Label x:Name="PlayerLevel_Value" Grid.Row="6" Grid.Column="1" 
                    Content="{Binding CurrentPlayer.Level}">
-
             </Label>
         </Grid>
 
@@ -127,16 +125,14 @@
 
                 <RichTextBox x:Name="GameMessages" 
                              Background="Beige"
-                             VerticalScrollBarVisibility="Auto">
+                             VerticalScrollBarVisibility="Auto" IsReadOnly="True">
                     <RichTextBox.Resources>
                         <Style TargetType="{x:Type Paragraph}">
                             <Setter Property="Margin" Value="0"/>
                         </Style>
                     </RichTextBox.Resources>
                 </RichTextBox>
-
             </Border>
-
             <!--For the right collumn with location info-->
             <Border Grid.Row="0" Grid.Column="1"
              BorderBrush="Gainsboro" BorderThickness="1">

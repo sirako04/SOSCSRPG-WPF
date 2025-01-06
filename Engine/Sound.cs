@@ -5,6 +5,7 @@ using System.Text;
 using System.Media;
 using System.Threading.Tasks;
 using System.IO;
+using NAudio.Wave;
 
 namespace Engine
 {
@@ -48,6 +49,15 @@ namespace Engine
             soundPlayer.Stop();
             isPlaying = false;
             return;
+        }
+        public static Task PlayingMp3(string file)
+        {
+            var Mp3FileReader = new Mp3FileReader(file);
+            var waveOut = new WaveOut();
+             waveOut.Init(Mp3FileReader);
+            waveOut.Play();
+                
+            return Task.CompletedTask;
         }
     }
 }

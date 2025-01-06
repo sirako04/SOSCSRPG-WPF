@@ -175,7 +175,7 @@ namespace Engine.Models
         }
         public void SpendGold(int amountOfGold)
         {
-            if (amountOfGold >= Gold)
+            if (amountOfGold > Gold)
             {
                 throw new ArgumentOutOfRangeException
                     ($"{Name} only has {Gold} gold, and cannot spend gold");

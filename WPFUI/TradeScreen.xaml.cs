@@ -4,6 +4,8 @@ using Engine.ViewModels;
 using System.Media;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
+using WPFUI.Windows;
 
 namespace WPFUI
 {
@@ -23,7 +25,22 @@ namespace WPFUI
         private void OnClick_Sell(object sender, RoutedEventArgs e)
         {
             GroupedInventoryItem groupedInventoryItem = ((FrameworkElement)sender).DataContext as GroupedInventoryItem;
+            
+            if (groupedInventoryItem.Item.IsUnique)
+            {
+                YesOrNoWindow window = new YesOrNoWindow($"Selling {groupedInventoryItem.Item.Name}? ", $"Do you really wanna sell your {groupedInventoryItem.Item.Name}?")
+                {
+                    Owner = this,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    ShowInTaskbar = false           
+                };
 
+                window.ShowDialog();
+                if (!window.ClickedYes)
+                {
+                    return;
+                }
+            }
             if (groupedInventoryItem != null)
             {
                 Session.CurrentPlayer.ReceiveGold(groupedInventoryItem.Item.Price);
@@ -39,6 +56,7 @@ namespace WPFUI
 
             if (groupedInventoryItem != null)
             {
+               
                 if (Session.CurrentPlayer.Gold >= groupedInventoryItem.Item.Price)
                 {
                     Session.CurrentPlayer.SpendGold(groupedInventoryItem.Item.Price);

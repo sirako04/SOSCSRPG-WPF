@@ -1,4 +1,4 @@
-﻿
+﻿using Engine.Services;
 using Engine.Factories;
 using Engine.Actions;
 using System.Collections.Generic;
@@ -32,15 +32,16 @@ namespace Engine.Models
         }
         public Monster GetNewInstance()
         {
-            Monster newMonster = new Monster(ID, Name, ImageName, MaximumHitPoints,Dexterity,
-                CurrentWeapon, RewardExperiencePoints, Gold);
+            Monster newMonster =
+                new Monster(ID, Name, ImageName, MaximumHitPoints,Dexterity,
+                            CurrentWeapon, RewardExperiencePoints, Gold);
 
             foreach (ItemPercentage itemPercentage in _lootTable)
             {
                 // Cloning loot table 
                 newMonster.AddItemToLootTable(itemPercentage.ID, itemPercentage.Percentage);
                 // Populating the new Monster`s Inventory using the loot table
-                if (RandomNumberGenerator.NumberBetween(1,100) <= itemPercentage.Percentage)
+                if (DiceService.Instance.Roll(100).Value <= itemPercentage.Percentage)
                 {
                     newMonster.AddItemToInventory
                    (ItemFactory.CreateGameItem(itemPercentage.ID));

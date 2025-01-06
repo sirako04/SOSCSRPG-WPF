@@ -62,15 +62,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CharacterCreation.xaml.cs">
+      <DependentUpon>CharacterCreation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomConverters\BooleanToText.cs" />
     <Compile Include="CustomConverters\ColoringFromBoolean.cs" />
     <Compile Include="CustomConverters\FileToBitMapConverter.cs" />
+    <Compile Include="Startup.xaml.cs">
+      <DependentUpon>Startup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TradeScreen.xaml.cs">
       <DependentUpon>TradeScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\YesOrNoWindow.xaml.cs">
       <DependentUpon>YesOrNoWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CharacterCreation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,6 +93,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Startup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TradeScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

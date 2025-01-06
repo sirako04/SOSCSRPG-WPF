@@ -6,6 +6,8 @@ using Engine.EventArgs;
 using Engine.Services;
 using System.Threading;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace Engine.ViewModels
 {
@@ -16,14 +18,24 @@ namespace Engine.ViewModels
         private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\Muladhara.wav";
 
         #region Properties
+        private GameDetails _gameDetails;
 
         private Battle _currentBattle;
         private Trader _currentTrader;
         private Location _currentLocation;
         private Monster _currentMonster;
         private Player _currentPlayer;
-        public string Version { get; } = "0.1.000";
-        
+
+        [JsonIgnore]
+        public GameDetails GameDetails
+        {
+            get { return _gameDetails; }
+            set
+            {
+                _gameDetails = value;
+                OnPropertyChanged();
+            }
+        }  
         [JsonIgnore]
         public World CurrentWorld { get; }
         public Player CurrentPlayer
@@ -57,6 +69,7 @@ namespace Engine.ViewModels
                 {
                     _currentBattle.OnCombatVictory -= OnCurrentMonsterKilled;
                     _currentBattle.Dispose();
+                    _currentBattle = null;
                 }
                 _currentMonster = value;
 
@@ -136,8 +149,10 @@ namespace Engine.ViewModels
         #endregion
         public GameSession()
         {
+            PopulateGameDetails();
+
             CurrentWorld = WorldFactory.CreateWorld();
-            int dexterity = RandomNumberGenerator.NumberBetween(5, 19);
+            int dexterity = DiceService.Instance.Roll(7, 3).Value;
             
             CurrentPlayer = new Player("Sirak", "Fighter", 0, 15, 15, dexterity, 50);
 
@@ -154,6 +169,8 @@ namespace Engine.ViewModels
         }
         public GameSession(Player player, int xCoordinate, int yCoordinate)
         {
+            PopulateGameDetails();
+
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentPlayer = player;
             CurrentLocation = CurrentWorld.LocationAt(xCoordinate, yCoordinate);
@@ -253,15 +270,22 @@ namespace Engine.ViewModels
         public void AttackCurrentMonster()
         {
             Sound.Playing(BattleTheme);
-            _currentBattle.AttackOpponent();
+            _currentBattle?.AttackOpponent();
         }
         public void UseCurrentConsumable()
         {
             if (CurrentPlayer.CurrentConsumable != null)
             {
-                CurrentPlayer.UseCurrentConsumable();  
+                if (_currentBattle == null)
+                {
+                    CurrentPlayer.OnActionPerformed += OnConsumableActionPerformed;
+                }
+                CurrentPlayer.UseCurrentConsumable();
+                if (_currentBattle == null)
+                {
+                    CurrentPlayer.OnActionPerformed -= OnConsumableActionPerformed;
+                }
             }
-            _messageBroker.RaiseMessage("You don`t have consumable items");
         }
         public void CraftItemUsing(Recipe recipe)
         {
@@ -274,7 +298,7 @@ namespace Engine.ViewModels
                     {
                         GameItem outputItem = ItemFactory.CreateGameItem(itemQuantity.ItemID);
                         CurrentPlayer.AddItemToInventory(outputItem);
-                        _messageBroker.RaiseMessage($"You craft 1 {outputItem.Name}");
+                        _messageBroker.RaiseMessage($"You crafted 1 {outputItem.Name}");
                     }
                 }
             }
@@ -287,6 +311,10 @@ namespace Engine.ViewModels
                         $"{ItemFactory.ItemName(itemQuantity.ItemID)}");
                 }
             }
+        }
+        private void PopulateGameDetails()
+        {
+            GameDetailsService.ReadGameDetails();
         }
         private void OnPlayerKilled(object sender, System.EventArgs eventArgs)
         {
@@ -309,7 +337,11 @@ namespace Engine.ViewModels
             _messageBroker.RaiseMessage("");
             _messageBroker.RaiseMessage($"You are now Level {CurrentPlayer.Level}!");
             _messageBroker.RaiseMessage("");
-        }    
+        }
+        private void OnConsumableActionPerformed(object sender, string result)
+        {
+            _messageBroker.RaiseMessage(result);
+        }
         public void PlayingMusic(string filepath)
         {
             Sound.Playing(filepath);

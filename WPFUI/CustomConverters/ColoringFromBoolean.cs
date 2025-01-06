@@ -25,7 +25,7 @@ namespace WPFUI.CustomConverters
                 !int.TryParse(values[0]?.ToString(), out int currentHitPoints) ||
                 !int.TryParse(values[1]?.ToString(), out int maximumHitPoints))
             {
-                return new SolidColorBrush(Colors.Black); // Default Farbe
+                return new SolidColorBrush(Colors.Black); // Default Color
             }
 
         bool LowHealth = (int)(maximumHitPoints / 2) >= currentHitPoints && (int)(maximumHitPoints / 4) < currentHitPoints;

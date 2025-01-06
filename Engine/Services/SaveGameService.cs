@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Text;
 
 namespace Engine.Services
 {
@@ -127,7 +128,7 @@ namespace Engine.Services
         }
         private static string FileVersion(JObject data)
         {
-            return (string)data[nameof(GameSession.Version)];
+            return (string)data[nameof(GameSession.GameDetails.Version)];
         }
     }
 }

@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <GameItems>
 	<Weapons>
-		<Weapon ID="1001" Name="Pointy stick" Price ="5" MinDamage ="1" MaxDamage ="3"/>
-		<Weapon ID="1002" Name="Rusty sword" Price ="50" MinDamage ="2" MaxDamage ="4"/>
-		<Weapon ID="1003" Name="Wood sword" Price ="500" MinDamage ="5" MaxDamage ="8"/>
-		<Weapon ID="1501" Name="Snake fang" Price ="0" MinDamage ="3" MaxDamage ="5"/>
-		<Weapon ID="1502" Name="Rat claw" Price ="0" MinDamage ="2" MaxDamage ="4"/>
-		<Weapon ID="1503" Name="Spider fang" Price ="0" MinDamage ="6" MaxDamage ="9"/>
-		<Weapon ID="1504" Name="Boney hands" Price ="0" MinDamage ="12" MaxDamage ="20"/>
+		<Weapon ID="1001" Name="Pointy stick" Price ="5" DamageDice ="2d2"/>
+		<Weapon ID="1002" Name="Rusty sword" Price ="50" DamageDice ="2d4"/>
+		<Weapon ID="1003" Name="Wood sword" Price ="500" DamageDice ="2d6"/>
+		<Weapon ID="1501" Name="Snake fang" Price ="0" DamageDice ="2d2"/>
+		<Weapon ID="1502" Name="Rat claw" Price ="0" DamageDice ="2d4"/>
+		<Weapon ID="1503" Name="Spider fang" Price ="0" DamageDice ="2d8"/>
+		<Weapon ID="1504" Name="Boney hands" Price ="0" DamageDice ="6d10"/>
 	</Weapons>
 	<HealingItems>
-		<HealingItem ID ="2001" Name="Granola bar" Price ="10" HitPointsToHeal = "8"/>
+		<HealingItem ID ="2001" Name="Granola bar" Price ="10" HitPointsToHeal = "10"/>
 	</HealingItems>
 	<MiscellaneousItems>
 		<MiscellaneousItem ID="3001" Name="Oats" Price="1"/>

@@ -52,11 +52,16 @@ namespace Engine
         }
         public static Task PlayingMp3(string file)
         {
+
             var Mp3FileReader = new Mp3FileReader(file);
             var waveOut = new WaveOut();
-             waveOut.Init(Mp3FileReader);
-            waveOut.Play();
-                
+            if (!isPlaying)
+            {
+                waveOut.Init(Mp3FileReader);
+                waveOut.Play();
+                isPlaying = true;
+            }
+
             return Task.CompletedTask;
         }
     }

@@ -154,12 +154,13 @@ namespace Engine.ViewModels
             CurrentWorld = WorldFactory.CreateWorld();
             int dexterity = DiceService.Instance.Roll(7, 3).Value;
             
-            CurrentPlayer = new Player("Sirak", "Fighter", 0, 15, 15, dexterity, 50);
+          CurrentPlayer = new Player("Sirak", "Fighter", 0, 15, 15, dexterity, 50);
 
             if (!CurrentPlayer.Inventory.Weapons.Any())
             {
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
             }
+
             CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(2001));
             CurrentPlayer.LearnRecipe(RecipeFactory.RecipeByID(1));
             CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3001));

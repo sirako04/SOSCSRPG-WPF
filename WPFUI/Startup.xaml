@@ -25,9 +25,9 @@
                 Background="Green" Foreground="AliceBlue"
                 Content="Start New Game"
                 Click="StartNewGame_OnClick"/>
-        
+
         <Button Grid.Row="1" Grid.Column="0"
-                Margin="150,280,0,0" HorizontalAlignment="Center"
+                Margin="210,274,0,-275" HorizontalAlignment="Left"
                 Width="170"
                 Content="Exit"
                 Background="OrangeRed" Foreground="AliceBlue"

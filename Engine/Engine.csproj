@@ -167,6 +167,7 @@
     <Compile Include="Services\SaveGameService.cs" />
     <Compile Include="Shared\ExtensionMethods.cs" />
     <Compile Include="Sound.cs" />
+    <Compile Include="ViewModels\CharacterCreationViewModel.cs" />
     <Compile Include="ViewModels\GameSession.cs" />
   </ItemGroup>
   <ItemGroup>

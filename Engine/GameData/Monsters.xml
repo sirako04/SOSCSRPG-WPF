@@ -22,7 +22,7 @@
 		</LootItems>
 	</Monster>
 	<Monster ID="4" Name="Skeleton" MaximumHitPoints="150" WeaponID="1504" RewardXP="150" Gold="125" ImageName="Skeleton.png">
-		<Dexterity>20</Dexterity>
+		<Dexterity>9</Dexterity>
 		<LootItems>			
 			<LootItem ID="1003" Percentage="100"/>
 		</LootItems>

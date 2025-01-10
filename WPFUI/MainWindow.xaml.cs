@@ -21,23 +21,19 @@ namespace WPFUI
         private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
         private const string BGM_FILE = @"D:\C# WPF RPG\SOSCSRPG\Engine\Music\ShopMusic.wav";
        
-        public  GameSession _gameSession;
+        private  GameSession _gameSession;
+
         private readonly Dictionary<Key, Action> _userInputActions = new Dictionary<Key, Action>();
-        public MainWindow()
+        public MainWindow(Player player, int xLocation = 0, int yLocation = 0)
         {
 
             InitializeComponent();
 
             InitializeUserInputActions();
 
-            SetActiveGameSessionTo(new GameSession());
+            SetActiveGameSessionTo(new GameSession(player, xLocation, yLocation));
         }
-        public MainWindow(Player player) :
-            this()
-        {
-            _gameSession.CurrentPlayer = player;
-        }
-
+       
         private void OnClick_MoveNorth(object sender, RoutedEventArgs e)
         {
             _gameSession.MoveNorth();
@@ -138,12 +134,14 @@ namespace WPFUI
 
         private void StartNewGame_OnClick(object sender, RoutedEventArgs e)
         {
-            SetActiveGameSessionTo(new GameSession());
+            Startup startup = new Startup();
+            startup.Show();
+            Close();
         }
 
         private void LoadGame_OnClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+          /*  OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
                 Filter = $"Saved games (*.{SAVE_GAME_FILE_EXTENSION})|*.{SAVE_GAME_FILE_EXTENSION}"
@@ -153,7 +151,7 @@ namespace WPFUI
                 SetActiveGameSessionTo(SaveGameService.LoadLastSaveOrCreateNew
                     (openFileDialog.FileName));
             }
-            return;
+            return;*/
         }
 
         private void SaveGame_OnClick(object sender, RoutedEventArgs e)
@@ -167,14 +165,7 @@ namespace WPFUI
         }
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-           YesOrNoWindow message = new YesOrNoWindow
-                ("Save Game","Do you wanna save your current game?");
-            message.Owner = GetWindow(this);
-            message.ShowDialog();
-            if (message.ClickedYes)
-            {
-                SaveGame();
-            }
+            AskToSave();
         }
         private void SaveGame()
         {
@@ -186,6 +177,18 @@ namespace WPFUI
             if (saveFileDialog.ShowDialog() == true)
             {
                 SaveGameService.Save(_gameSession, saveFileDialog.FileName);
+            }
+        }
+        private void AskToSave()
+        {
+            YesOrNoWindow message = new YesOrNoWindow
+                ("Save Game", "Do you wanna save your current game?");
+            message.Owner = GetWindow(this);
+            message.ShowDialog();
+
+            if (message.ClickedYes)
+            {
+                SaveGame();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Engine.Models;
 using Engine.Services;
+using Engine.Factories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -63,9 +64,18 @@ namespace Engine.ViewModels
         }
         public Player GetPlayer()
         {
-            return new Player(Name, "Fighter", 0, 10, 10,
-                PlayerAttributes.FirstOrDefault
-                (pa =>pa.Key.Equals("DEX"))?.ModifiedValue?? 13, 50);
+           Player player = new Player(Name, 0, 15, 15, PlayerAttributes, 50);
+
+            // give player default inventory items 
+            player.AddItemToInventory(ItemFactory.CreateGameItem(1001));
+            player.AddItemToInventory(ItemFactory.CreateGameItem(2001));
+            player.LearnRecipe(RecipeFactory.RecipeByID(1));
+            player.AddItemToInventory(ItemFactory.CreateGameItem(3001));
+            player.AddItemToInventory(ItemFactory.CreateGameItem(3002));
+            player.AddItemToInventory(ItemFactory.CreateGameItem(3003));
+
+            return player;
         }
     }
 }
+;

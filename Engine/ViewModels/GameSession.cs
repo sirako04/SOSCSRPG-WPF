@@ -147,27 +147,6 @@ namespace Engine.ViewModels
         [JsonIgnore]
         public bool HasTrader => CurrentTrader != null;
         #endregion
-        public GameSession()
-        {
-            PopulateGameDetails();
-
-            CurrentWorld = WorldFactory.CreateWorld();
-            int dexterity = DiceService.Instance.Roll(7, 3).Value;
-            
-          CurrentPlayer = new Player("Sirak", "Fighter", 0, 15, 15, dexterity, 50);
-
-            if (!CurrentPlayer.Inventory.Weapons.Any())
-            {
-                CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
-            }
-
-            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(2001));
-            CurrentPlayer.LearnRecipe(RecipeFactory.RecipeByID(1));
-            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3001));
-            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3002));
-            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3003));
-            CurrentLocation = CurrentWorld.LocationAt(0, 0);
-        }
         public GameSession(Player player, int xCoordinate, int yCoordinate)
         {
             PopulateGameDetails();
